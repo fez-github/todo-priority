@@ -1,4 +1,4 @@
-export interface Todo {
+export interface iTodo {
   id: number;
   title: string;
   description: string;
@@ -10,4 +10,9 @@ export interface Todo {
   subtasks: string[];
   startDate: Date | null;
   dueDate: Date | null;
+}
+
+export interface iTag {
+  id: number;
+  name: string;
 }

@@ -1,15 +1,27 @@
+<script lang="ts">
+  import type { iTodo } from "../types";
+
+  export let todo: iTodo
+</script>
+
 <div class="todo-container">
   <div class="priorities">
-    <div class="priority urgency">3</div>
-    <div class="priority importance">3</div>
-    <div class="priority time">5</div>
+    <div class="priority urgency">{todo.urgency}</div>
+    <div class="priority importance">{todo.importance}</div>
+    <div class="priority time">{todo.time}</div>
   </div>
-  <div class="description">THIS IS MY DESCRIPTION</div>
+  <div class="description">{todo.description}</div>
   <p>Tags:</p>
   <ul>
-    <li>Tag1</li>
-    <li>Tag2</li>
-    <li>Tag3</li>
+    {#each todo.tags as tag}
+    <li>{tag}</li>
+    {/each}
+  </ul>
+  <p>Subtasks:</p>
+  <ul>
+    {#each todo.subtasks as subtask}
+    <li>{subtask}</li>
+    {/each}
   </ul>
 </div>
 
