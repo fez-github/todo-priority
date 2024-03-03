@@ -23,6 +23,8 @@
 
   function addTodo(todo: iTodo) {
     todos = [...todos, todo]
+    console.log({todos})
+
   }
 </script>
 
@@ -30,7 +32,7 @@
   {#each todos as todo}
     <Todo {todo}/>
   {/each}
-  <TodoForm />
+  <TodoForm onSubmit={addTodo}/>
 </main>
 
 <style>

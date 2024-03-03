@@ -5,6 +5,7 @@
 </script>
 
 <div class="todo-container">
+  <div class="title">{todo.title}</div>
   <div class="priorities">
     <div class="priority urgency">{todo.urgency}</div>
     <div class="priority importance">{todo.importance}</div>
