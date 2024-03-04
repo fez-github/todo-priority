@@ -1,0 +1,256 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Todo 1",
+      "description": "This is my first todo",
+      "urgency": 3,
+      "importance": 3,
+      "time": 5,
+      "completed": false,
+      "tags": [],
+      "subtasks": [],
+      "startDate": null,
+
+      "dueDate": null
+    },
+    {
+      "id": 2,
+      "title": "Email someone.",
+      "description": "Follow up with Linkedin connection.",
+      "urgency": 3,
+      "importance": 3,
+      "time": 2,
+      "completed": false,
+      "tags": [],
+      "subtasks": [],
+      "startDate": null,
+
+      "dueDate": null
+    },
+    {
+      "id": 3,
+      "title": "Clean room",
+      "description": "",
+      "urgency": 0,
+      "importance": 0,
+      "time": 0,
+      "completed": false,
+      "tags": [],
+      "subtasks": [],
+      "startDate": null,
+
+      "dueDate": null
+    },
+    {
+      "id": 16,
+      "title": "Complete project proposal",
+      "description": "Draft and finalize the project proposal for upcoming client meeting.",
+      "urgency": 5,
+      "importance": 4,
+      "time": 8,
+      "completed": false,
+      "tags": ["project", "meeting", "deadline"],
+      "subtasks": [
+        "Research similar projects",
+        "Outline key points",
+        "Gather team feedback"
+      ],
+      "startDate": "2024-03-05",
+      "dueDate": "2024-03-10"
+    },
+    {
+      "id": 17,
+      "title": "Buy groceries",
+      "description": "Purchase essential groceries for the week.",
+      "urgency": 3,
+      "importance": 3,
+      "time": 5,
+      "completed": false,
+      "tags": ["groceries", "shopping"],
+      "subtasks": ["Make a shopping list", "Check for discounts"],
+      "startDate": null,
+      "dueDate": null
+    },
+    {
+      "id": 18,
+      "title": "Prepare presentation slides",
+      "description": "Create slides for the upcoming presentation.",
+      "urgency": 4,
+      "importance": 5,
+      "time": 7,
+      "completed": false,
+      "tags": ["presentation", "meeting", "deadline"],
+      "subtasks": ["Gather data", "Design slides", "Practice presentation"],
+      "startDate": "2024-03-01",
+      "dueDate": "2024-03-08"
+    },
+    {
+      "id": 4,
+      "title": "Call plumber",
+      "description": "Schedule an appointment with the plumber to fix the leaking faucet.",
+      "urgency": 2,
+      "importance": 4,
+      "time": 4,
+      "completed": false,
+      "tags": ["home", "maintenance"],
+      "subtasks": ["Research local plumbers", "Check availability"],
+      "startDate": null,
+      "dueDate": null
+    },
+    {
+      "id": 5,
+      "title": "Exercise",
+      "description": "Go for a run in the park.",
+      "urgency": 3,
+      "importance": 3,
+      "time": 6,
+      "completed": false,
+      "tags": ["health", "fitness", "exercise"],
+      "subtasks": ["Warm-up", "Run for 30 minutes", "Cool down"],
+      "startDate": "2024-03-03",
+      "dueDate": null
+    },
+    {
+      "id": 6,
+      "title": "Read book",
+      "description": "Read the new novel by your favorite author.",
+      "urgency": 2,
+      "importance": 3,
+      "time": 4,
+      "completed": false,
+      "tags": ["reading", "leisure"],
+      "subtasks": ["Set aside reading time", "Find a comfortable spot"],
+      "startDate": "2024-03-02",
+      "dueDate": null
+    },
+    {
+      "id": 7,
+      "title": "Plan vacation",
+      "description": "Research and plan a vacation for the upcoming holiday.",
+      "urgency": 4,
+      "importance": 5,
+      "time": 8,
+      "completed": false,
+      "tags": ["travel", "vacation", "planning"],
+      "subtasks": [
+        "Choose destination",
+        "Book accommodations",
+        "Plan activities"
+      ],
+      "startDate": null,
+      "dueDate": null
+    },
+    {
+      "id": 8,
+      "title": "Attend webinar",
+      "description": "Participate in the webinar on AI and its applications.",
+      "urgency": 3,
+      "importance": 4,
+      "time": 6,
+      "completed": false,
+      "tags": ["webinar", "learning"],
+      "subtasks": ["Register for the webinar", "Set reminder"],
+      "startDate": "2024-03-07",
+      "dueDate": null
+    },
+    {
+      "id": 9,
+      "title": "Birthday party planning",
+      "description": "Organize a birthday party for a friend.",
+      "urgency": 5,
+      "importance": 4,
+      "time": 7,
+      "completed": false,
+      "tags": ["party", "celebration", "planning"],
+      "subtasks": ["Create guest list", "Choose venue", "Order cake"],
+      "startDate": null,
+      "dueDate": "2024-03-15"
+    },
+    {
+      "id": 10,
+      "title": "Update resume",
+      "description": "Revise and update your resume for job applications.",
+      "urgency": 4,
+      "importance": 5,
+      "time": 6,
+      "completed": false,
+      "tags": ["career", "job hunt"],
+      "subtasks": [
+        "Gather recent achievements",
+        "Tailor resume for specific positions"
+      ],
+      "startDate": "2024-03-01",
+      "dueDate": null
+    },
+    {
+      "id": 11,
+      "title": "Grocery shopping",
+      "description": "Buy groceries for the week.",
+      "urgency": 3,
+      "importance": 3,
+      "time": 5,
+      "completed": false,
+      "tags": ["groceries", "shopping"],
+      "subtasks": ["Make a shopping list", "Check for discounts"],
+      "startDate": "2024-03-03",
+      "dueDate": null
+    },
+    {
+      "id": 12,
+      "title": "Write blog post",
+      "description": "Draft a new blog post on recent industry trends.",
+      "urgency": 4,
+      "importance": 4,
+      "time": 7,
+      "completed": false,
+      "tags": ["blogging", "writing", "industry"],
+      "subtasks": ["Research topic", "Outline key points", "Write content"],
+      "startDate": null,
+      "dueDate": "2024-03-10"
+    },
+    {
+      "id": 13,
+      "title": "House cleaning",
+      "description": "Clean and organize the house.",
+      "urgency": 2,
+      "importance": 3,
+      "time": 5,
+      "completed": false,
+      "tags": ["home", "cleaning"],
+      "subtasks": ["Declutter", "Dust furniture", "Vacuum floors"],
+      "startDate": "2024-03-05",
+      "dueDate": null
+    },
+    {
+      "id": 14,
+      "title": "Study for exam",
+      "description": "Prepare for the upcoming exam in history.",
+      "urgency": 5,
+      "importance": 5,
+      "time": 9,
+      "completed": false,
+      "tags": ["study", "exam", "education"],
+      "subtasks": [
+        "Review notes",
+        "Practice past papers",
+        "Create study schedule"
+      ],
+      "startDate": "2024-03-01",
+      "dueDate": "2024-03-10"
+    },
+    {
+      "id": 15,
+      "title": "Call parents",
+      "description": "Catch up with parents over the phone.",
+      "urgency": 3,
+      "importance": 4,
+      "time": 4,
+      "completed": false,
+      "tags": ["family", "communication"],
+      "subtasks": ["Set aside time for the call", "Prepare topics to discuss"],
+      "startDate": null,
+      "dueDate": null
+    }
+  ]
+}

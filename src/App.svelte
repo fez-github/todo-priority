@@ -3,23 +3,10 @@
   import TodoForm from './lib/TodoForm.svelte';
   import type { iTodo } from './types';
 
-  let todos: iTodo[] = [
-    {
-      id: 1,
-      title: 'Todo 1',
-      description: 'This is my first todo',
-      urgency: 3,
-      importance: 3,
-      time: 5,
-      completed: false,
-      tags: [],
-      subtasks: [],
-      startDate: null,
+  //Import data.
+  import sampledata from "./sampledata.json"
 
-      dueDate: null
-
-    }
-  ]
+  let todos: iTodo[] = sampledata.todos
 
   function addTodo(todo: iTodo) {
     todos = [...todos, todo]
@@ -28,8 +15,6 @@
   }
 
   function removeTodo(id: number) {
-    //todos = [...todos.filter(todo => todo.id !== id)]
-    console.log("Removing...")
     todos = todos.filter(todo => todo.id !== id)
   }
 </script>

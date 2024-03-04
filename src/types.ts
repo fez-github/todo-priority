@@ -2,14 +2,14 @@ export interface iTodo {
   id: number;
   title: string;
   description: string;
-  urgency: number;
-  importance: number;
-  time: number;
+  urgency: number; //1-5 scale, 0 if unassigned.
+  importance: number; //1-5 scale, 0 if unassigned.
+  time: number; //1-10 scale, 0 if unassigned.
   completed: boolean;
   tags: string[];
   subtasks: string[];
-  startDate: Date | null;
-  dueDate: Date | null;
+  startDate: string | null;
+  dueDate: string | null;
 }
 
 export interface iTag {

@@ -5,7 +5,6 @@
   export let removeTodo: (id: number) => void
 
   function deleteTodo(){
-    console.log("Button clicked.")
     removeTodo(todo.id)
   }
 </script>
