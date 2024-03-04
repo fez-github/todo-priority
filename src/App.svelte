@@ -1,10 +1,11 @@
 <script lang="ts">
-  import Todo from './lib/Todo.svelte';
+  import Todo from './lib/TodoDetail.svelte';
   import TodoForm from './lib/TodoForm.svelte';
   import type { iTodo } from './types';
 
   //Import data.
   import sampledata from "./sampledata.json"
+  import TodoSimple from './lib/TodoSimple.svelte';
 
   let todos: iTodo[] = sampledata.todos
 
@@ -21,7 +22,7 @@
 
 <main>
   {#each todos as todo}
-    <Todo {todo} removeTodo={removeTodo}/>
+    <TodoSimple {todo} removeTodo={removeTodo}/>
   {/each}
   <TodoForm onSubmit={addTodo}/>
 </main>

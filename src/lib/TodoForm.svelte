@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { iTodo } from "../types";
-  import Todo from "./Todo.svelte";
 
   let task = ""
   let description = ""
@@ -11,11 +10,6 @@
 
   let tagText: string = ""
   let subtasks: string[] = []
-
-  // export const onSubmit = (todo: iTodo) => {
-  //   console.log("Form submitted")
-  //   console.log(todo)
-  // }
 
   export let onSubmit: (todo: iTodo) => void
 
