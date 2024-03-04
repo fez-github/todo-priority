@@ -26,11 +26,17 @@
     console.log({todos})
 
   }
+
+  function removeTodo(id: number) {
+    //todos = [...todos.filter(todo => todo.id !== id)]
+    console.log("Removing...")
+    todos = todos.filter(todo => todo.id !== id)
+  }
 </script>
 
 <main>
   {#each todos as todo}
-    <Todo {todo}/>
+    <Todo {todo} removeTodo={removeTodo}/>
   {/each}
   <TodoForm onSubmit={addTodo}/>
 </main>

@@ -2,6 +2,12 @@
   import type { iTodo } from "../types";
 
   export let todo: iTodo
+  export let removeTodo: (id: number) => void
+
+  function deleteTodo(){
+    console.log("Button clicked.")
+    removeTodo(todo.id)
+  }
 </script>
 
 <div class="todo-container">
@@ -17,6 +23,7 @@
     {#each todo.tags as tag}
     <li>{tag}</li>
     {/each}
+
   </ul>
   <p>Subtasks:</p>
   <ul>
@@ -24,6 +31,7 @@
     <li>{subtask}</li>
     {/each}
   </ul>
+  <button on:click={deleteTodo}>Delete</button>
 </div>
 
 <style>
