@@ -9,7 +9,7 @@
   }
 </script>
 
-<div class="todo-container">
+<div class="todo-container modal">
   <div class="title">{todo.title}</div>
   <div class="priorities">
     <div class="priority urgency">{todo.urgency}</div>
@@ -43,6 +43,19 @@
     border-radius: 5px;
     align-items: center;
   }
+
+  /*From https://medium.com/@ResearchNowEng/making-perfectly-sized-centered-scrollable-modals-a36da09b68e6*/
+  .modal {
+    background:white;
+    position:fixed;
+    top:50%;
+    left:50%;
+    box-sizing:border-box;
+    transform: translate(-50%,-50%);
+    width:600px;
+    max-width:calc(100% - 80px);
+    max-height:calc(100% - 80px); 
+}
   .priorities{
     display: flex;
     flex-direction: row;
