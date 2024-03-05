@@ -23,8 +23,11 @@
 <main>
     <!-- <TodoSimple {todo} removeTodo={removeTodo}/> -->
     <div class="board-container">
-      <Board kind="current" {todos} {removeTodo} />
-      <Board kind="finished" {todos} {removeTodo} />
+      <!-- <Board kind="current" {todos} {removeTodo} />
+      <Board kind="completed" {todos} {removeTodo} /> -->
+      <Board title="Completed Tasks" todos={todos.filter(todo => todo.completed === true)} {removeTodo} />
+      <Board title="Current Tasks" todos={todos.filter(todo => todo.completed === false)} {removeTodo} />
+
     </div>
   <TodoForm onSubmit={addTodo}/>
 </main>

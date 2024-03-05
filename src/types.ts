@@ -16,3 +16,5 @@ export interface iTag {
   id: number;
   name: string;
 }
+
+export type kind = "completed" | "current"
