@@ -5,7 +5,7 @@
 
   //Import data.
   import sampledata from "./sampledata.json"
-  import TodoSimple from './lib/TodoSimple.svelte';
+  import Board from './lib/Board.svelte';
 
   let todos: iTodo[] = sampledata.todos
 
@@ -21,13 +21,19 @@
 </script>
 
 <main>
-  {#each todos as todo}
-    <TodoSimple {todo} removeTodo={removeTodo}/>
-  {/each}
+    <!-- <TodoSimple {todo} removeTodo={removeTodo}/> -->
+    <div class="board-container">
+      <Board kind="current" {todos} {removeTodo} />
+      <Board kind="finished" {todos} {removeTodo} />
+    </div>
   <TodoForm onSubmit={addTodo}/>
 </main>
 
 <style>
+  .board-container{
+    display: flex;
+    flex-direction: row;
+  }
   /* .logo {
     height: 6em;
     padding: 1.5em;

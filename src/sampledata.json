@@ -118,7 +118,7 @@
       "urgency": 2,
       "importance": 3,
       "time": 4,
-      "completed": false,
+      "completed": true,
       "tags": ["reading", "leisure"],
       "subtasks": ["Set aside reading time", "Find a comfortable spot"],
       "startDate": "2024-03-02",
@@ -174,7 +174,7 @@
       "urgency": 4,
       "importance": 5,
       "time": 6,
-      "completed": false,
+      "completed": true,
       "tags": ["career", "job hunt"],
       "subtasks": [
         "Gather recent achievements",
