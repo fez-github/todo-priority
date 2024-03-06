@@ -1,4 +1,4 @@
-import type Todo from "./lib/Todo.svelte";
+import type Todo from "./lib/TodoDetail.svelte";
 
 /**Implementation for getting, adding, updating, and removing Todos. */
 abstract class TodoFetcher {

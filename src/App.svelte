@@ -32,14 +32,7 @@
       <Board title="Completed Tasks" todos={todos.filter(todo => todo.completed === true)} {removeTodo} />
       <Board title="Current Tasks" todos={todos.filter(todo => todo.completed === false)} {removeTodo} />
     </div>
-    <!-- <Modals>
-      <div
-        slot="backdrop"
-        class="backdrop"
-        on:click={closeModal}
-      />
-    </Modals> -->
-    <Modal closeOnEsc={true}>
+    <Modal classWindow="modal" closeOnEsc={true}>
       <ModalButton {removeTodo} />
     </Modal>
   <TodoForm onSubmit={addTodo}/>
@@ -50,14 +43,18 @@
     display: flex;
     flex-direction: row;
   }
-  /* .backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0,0,0,0.50)
-  } */
+  /*From https://medium.com/@ResearchNowEng/making-perfectly-sized-centered-scrollable-modals-a36da09b68e6*/
+  .modal {
+    background:white;
+    position:fixed;
+    top:50%;
+    left:50%;
+    box-sizing:border-box;
+    transform: translate(-50%,-50%);
+    width:600px;
+    max-width:calc(100% - 80px);
+    max-height:calc(100% - 80px); 
+}
   /* .logo {
     height: 6em;
     padding: 1.5em;

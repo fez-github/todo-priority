@@ -44,18 +44,6 @@
     align-items: center;
   }
 
-  /*From https://medium.com/@ResearchNowEng/making-perfectly-sized-centered-scrollable-modals-a36da09b68e6*/
-  .modal {
-    background:white;
-    position:fixed;
-    top:50%;
-    left:50%;
-    box-sizing:border-box;
-    transform: translate(-50%,-50%);
-    width:600px;
-    max-width:calc(100% - 80px);
-    max-height:calc(100% - 80px); 
-}
   .priorities{
     display: flex;
     flex-direction: row;
