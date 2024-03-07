@@ -1,16 +1,23 @@
 <script lang="ts">
   import type { iTodo } from "../types";
 
-  export let todo: iTodo
-  export let removeTodo: (id: number) => void
+  export let todo: iTodo;
+  export let removeTodo: (id: number) => void;
+  export let editTodo: (todo: iTodo) => void;
 
-  function deleteTodo(){
-    removeTodo(todo.id)
+  function deleteTodo() {
+    removeTodo(todo.id);
+  }
+
+  function updateTodo(event: Event) {
+    console.log("Called!");
+    editTodo(todo);
   }
 </script>
 
 <div class="todo-container modal">
-  <div class="title">{todo.title}</div>
+  <textarea class="title" on:change={updateTodo} bind:value={todo.title}
+  ></textarea>
   <div class="priorities">
     <div class="priority urgency">{todo.urgency}</div>
     <div class="priority importance">{todo.importance}</div>
@@ -20,14 +27,13 @@
   <p>Tags:</p>
   <ul>
     {#each todo.tags as tag}
-    <li>{tag}</li>
+      <li>{tag}</li>
     {/each}
-
   </ul>
   <p>Subtasks:</p>
   <ul>
     {#each todo.subtasks as subtask}
-    <li>{subtask}</li>
+      <li>{subtask}</li>
     {/each}
   </ul>
   <button on:click={deleteTodo}>Delete</button>
@@ -44,13 +50,13 @@
     align-items: center;
   }
 
-  .priorities{
+  .priorities {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
   }
-  .priority{
+  .priority {
     border: 1px solid black;
     padding: 5px;
     border-radius: 5px;
