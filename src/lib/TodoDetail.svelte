@@ -10,20 +10,40 @@
   }
 
   function updateTodo(event: Event) {
-    console.log("Called!");
     editTodo(todo);
   }
 </script>
 
 <div class="todo-container modal">
-  <textarea class="title" on:change={updateTodo} bind:value={todo.title}
-  ></textarea>
+  <textarea class="title" on:change={updateTodo} bind:value={todo.title} />
   <div class="priorities">
-    <div class="priority urgency">{todo.urgency}</div>
-    <div class="priority importance">{todo.importance}</div>
-    <div class="priority time">{todo.time}</div>
+    <input
+      class="priority urgency"
+      type="number"
+      min="0"
+      max="5"
+      bind:value={todo.urgency}
+    />
+    <input
+      class="priority importance"
+      type="number"
+      min="0"
+      max="5"
+      bind:value={todo.importance}
+    />
+    <input
+      class="priority time"
+      type="number"
+      min="0"
+      max="10"
+      bind:value={todo.time}
+    />
   </div>
-  <div class="description">{todo.description}</div>
+  <textarea
+    class="title description"
+    on:change={updateTodo}
+    bind:value={todo.description}
+  />
   <p>Tags:</p>
   <ul>
     {#each todo.tags as tag}

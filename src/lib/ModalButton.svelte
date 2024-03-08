@@ -25,7 +25,6 @@
 
   function handleClick() {
     open(TodoDetail, { todo: thisTodo, removeTodo, editTodo });
-    //openModal(TodoDetail, {todo: todos[0], removeTodo})
   }
 </script>
 
