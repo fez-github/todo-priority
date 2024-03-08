@@ -1,22 +1,53 @@
 <script lang="ts">
+    import { onMount } from "svelte";
   import type { iTodo } from "../types";
 
   let task = "";
   let description = "";
 
-  let urgency = 0;
-  let importance = 0;
-  let time = 0;
-
-  let tagText: string = "";
-  let subtasks: string[] = [];
+  let urgency: number;
+  let importance: number;
+  let time: number;
 
   let newTag: string = "";
   let allTags: string[] = ["Test1", "Test2"];
 
+  let urgentOptions: string[] = [
+    "Null",
+    "Not urgent",
+    "A little urgent",
+    "Somewhat urgent",
+    "Very urgent",
+    "Extremely urgent",
+  ];
+  let importantOptions: string[] = [
+    "Null",
+    "Not important",
+    "A little important",
+    "Somewhat important",
+    "Very important",
+    "Extremely important",
+  ];
+  let timeOptions: string[] = [
+    "Null",
+    "A couple minutes",
+    "Several minutes",
+    "Half an hour",
+    "1 hour",
+    "Several hours",
+    "1 day",
+    "Several days",
+    "1 week",
+    "2-3 weeks",
+    "1 month",
+    "Several months",
+    "1 year",
+    "Several years",
+  ];
+
   export let onSubmit: (todo: iTodo) => void;
 
-  function addTag(e: Event) {
+  function addTag() {
     if (newTag.trim() === "") return;
 
     allTags = [...allTags, newTag];
@@ -36,12 +67,14 @@
       urgency: urgency,
       importance: importance,
       time: time,
-      completed: false,
       tags: allTags,
+      completed: false,
       subtasks: [],
       startDate: null,
       dueDate: null,
     };
+
+    console.log({todo})
 
     //Reset form values.
     task = "";
@@ -58,24 +91,39 @@
 <form on:submit|preventDefault={formSubmit} id="todo-form">
   <label>
     Task:
-    <input type="text" required bind:value={task} />
+    <input type="text" name="title" required bind:value={task} />
   </label>
   <label>
     Description:
-    <input type="text" bind:value={description} />
+    <input type="text" name="description" bind:value={description} />
   </label>
   <div class="priorities">
     <label>
       Urgency:
-      <input type="number" min="0" max="5" bind:value={urgency} />
+      <!-- <input type="number" min="0" max="5" bind:value={urgency} /> -->
+      <select bind:value={urgency} name="urgency">
+        {#each urgentOptions as option, index}
+          <option value={index}>{option}</option>
+        {/each}
+      </select>
     </label>
     <label>
       Importance:
-      <input type="number" min="0" max="5" bind:value={importance} />
+      <!-- <input type="number" min="0" max="5" bind:value={importance} /> -->
+      <select bind:value={importance} name="importance">
+        {#each importantOptions as option, index}
+          <option value={index}>{option}</option>
+        {/each}
+      </select>
     </label>
     <label>
       Time:
-      <input type="number" min="0" max="10" bind:value={time} />
+      <!-- <input type="number" min="0" max="10" bind:value={time} /> -->
+      <select bind:value={time} name="time">
+        {#each timeOptions as option, index}
+          <option value={index}>{option}</option>
+        {/each}
+      </select>
     </label>
   </div>
   <div class="tag-input">
@@ -92,7 +140,7 @@
       id="tag-input"
       type="text"
       bind:value={newTag}
-      on:keydown={(e) => e.key === "Enter" && addTag(e)}
+      on:keydown={(e) => e.key === "Enter" && addTag()}
     />
   </div>
   <button on:click={formSubmit} type="submit">Add</button>
@@ -129,6 +177,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 10px;
+    border: 1px solid black;
   }
 
   .tag-container {
