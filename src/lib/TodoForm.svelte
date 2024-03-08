@@ -11,31 +11,23 @@
   let tagText: string = "";
   let subtasks: string[] = [];
 
-  let newEntry: string = "";
-  let entries: string[] = ["Test1", "Test2"];
+  let newTag: string = "";
+  let allTags: string[] = ["Test1", "Test2"];
 
   export let onSubmit: (todo: iTodo) => void;
 
-  function addTag() {
-    console.log({ newEntry });
-    if (newEntry.trim() === "") return;
+  function addTag(e: Event) {
+    if (newTag.trim() === "") return;
 
-    entries = [...entries, newEntry];
-    newEntry = "";
-    console.log({ entries });
+    allTags = [...allTags, newTag];
+    newTag = "";
   }
 
   function removeTag(index: number, e: Event) {
-    //entries = entries.filter((_, i) => i !== index);
-    console.log(e.target);
-    console.log("Why am I fired?");
+    allTags = allTags.filter((_, i) => i !== index);
   }
 
   function formSubmit(event: Event) {
-    console.log("Am I fired?");
-    // console.log({ tagText });
-
-    // let tags = tagText.split("\n");
 
     const todo: iTodo = {
       id: Date.now(),
@@ -45,7 +37,7 @@
       importance: importance,
       time: time,
       completed: false,
-      tags: entries,
+      tags: allTags,
       subtasks: [],
       startDate: null,
       dueDate: null,
@@ -57,7 +49,7 @@
     urgency = 0;
     importance = 0;
     time = 0;
-    entries = [];
+    allTags = [];
 
     onSubmit(todo);
   }
@@ -89,21 +81,21 @@
   <div class="tag-input">
     <label for="tag-input">Tags:</label>
     <div class="tag-container">
-      {#each entries as entry, index}
-        <button class="entry" on:click={(e) => removeTag(index, e)}>
+      {#each allTags as entry, index}
+        <span class="entry">
           {entry}
-          <button>X</button>
-        </button>
+          <button on:click={(e) => removeTag(index, e)}>X</button>
+        </span>
       {/each}
     </div>
     <input
       id="tag-input"
       type="text"
-      bind:value={newEntry}
-      on:keydown={(e) => e.key === "Enter" && addTag()}
+      bind:value={newTag}
+      on:keydown={(e) => e.key === "Enter" && addTag(e)}
     />
   </div>
-  <button type="submit">Add</button>
+  <button on:click={formSubmit} type="submit">Add</button>
 </form>
 
 <style>
