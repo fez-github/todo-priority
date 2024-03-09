@@ -1,7 +1,24 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { iTodo } from "../types";
+  import TodoDetail from "./TodoDetail.svelte";
 
-  let task = "";
+  export let todo: iTodo = {
+    id: Date.now(),
+    title: "",
+    description: "",
+    urgency: 0,
+    importance: 0,
+    time: 0,
+    completed: false,
+    tags: ["Test1", "Test2"],
+    subtasks: [],
+    startDate: null,
+    dueDate: null,
+  };
+  export let newForm: boolean = false;
+
+  let title = "";
   let description = "";
 
   let urgency: number;
@@ -12,7 +29,8 @@
   let dueDate: Date;
 
   let newTag: string = "";
-  let allTags: string[] = ["Test1", "Test2"];
+
+  export let onSubmit: (todo: iTodo) => void;
 
   let urgentOptions: string[] = [
     "Null",
@@ -46,64 +64,71 @@
     "1 year",
     "Several years",
   ];
-
-  export let onSubmit: (todo: iTodo) => void;
-
   function addTag(e: Event) {
     e.preventDefault();
     if (newTag.trim() === "") return;
 
-    allTags = [...allTags, newTag];
+    //Make newTag lower case and replace white space with hyphens
+    newTag = newTag.trim().toLowerCase().replace(/\s/g, "-");
+    todo.tags = [...todo.tags, newTag];
     newTag = "";
   }
 
-  function removeTag(index: number, e: Event) {
-    allTags = allTags.filter((_, i) => i !== index);
+  function removeTag(e: Event, index: number) {
+    e.preventDefault();
+    todo.tags = todo.tags.filter((_, i) => i !== index);
   }
 
-  function formSubmit(event: SubmitEvent) {
-    const todo: iTodo = {
+  function formSubmit() {
+    const newTodo: iTodo = {
       id: Date.now(),
-      title: task,
+      title: title,
       description: description,
       urgency: urgency,
       importance: importance,
       time: time,
-      tags: allTags,
+      tags: todo.tags,
       completed: false,
       subtasks: [],
-      startDate: startDate.toString(),
-      dueDate: dueDate.toString(),
+      startDate: startDate ? startDate.toString() : null,
+      dueDate: dueDate ? dueDate.toString() : null,
     };
 
-    console.log({ todo });
-
-    //Reset form values.
-    task = "";
-    description = "";
-    urgency = 0;
-    importance = 0;
-    time = 0;
-    allTags = [];
+    console.log({ todo: newTodo });
 
     onSubmit(todo);
+
+    //Reset form values.
+    if (newForm) {
+      todo.title = "";
+      todo.description = "";
+      todo.urgency = 0;
+      todo.importance = 0;
+      todo.time = 0;
+      todo.tags = [];
+      todo.startDate = null;
+      todo.dueDate = null;
+    }
   }
+
+  onMount(() => {
+    console.log({ todo });
+  });
 </script>
 
 <form on:submit|preventDefault={formSubmit} id="todo-form">
   <label>
     Task:
-    <input type="text" name="title" required bind:value={task} />
+    <input type="text" name="title" required bind:value={todo.title} />
   </label>
   <label>
     Description:
-    <input type="text" name="description" bind:value={description} />
+    <textarea name="description" bind:value={todo.description} />
   </label>
   <div class="priorities">
     <label>
       Urgency:
-      <!-- <input type="number" min="0" max="5" bind:value={urgency} /> -->
-      <select bind:value={urgency} name="urgency">
+      <select bind:value={todo.urgency} name="urgency">
         {#each urgentOptions as option, index}
           <option value={index}>{option}</option>
         {/each}
@@ -111,8 +136,7 @@
     </label>
     <label>
       Importance:
-      <!-- <input type="number" min="0" max="5" bind:value={importance} /> -->
-      <select bind:value={importance} name="importance">
+      <select bind:value={todo.importance} name="importance">
         {#each importantOptions as option, index}
           <option value={index}>{option}</option>
         {/each}
@@ -120,8 +144,7 @@
     </label>
     <label>
       Time:
-      <!-- <input type="number" min="0" max="10" bind:value={time} /> -->
-      <select bind:value={time} name="time">
+      <select bind:value={todo.time} name="time">
         {#each timeOptions as option, index}
           <option value={index}>{option}</option>
         {/each}
@@ -131,11 +154,11 @@
   <div class="tag-input">
     <label for="tag-input">Tags:</label>
     <div class="tag-container">
-      {#each allTags as entry, index}
-        <span class="entry">
-          {entry}
-          <button on:click={(e) => removeTag(index, e)}>X</button>
-        </span>
+      {#each todo.tags as tag, index}
+        <div class="tag">
+          <input class="entry" bind:value={tag} type="text" />
+          <button on:click={(e) => removeTag(e, index)}>X</button>
+        </div>
       {/each}
     </div>
     <input
@@ -155,7 +178,7 @@
       <input type="date" name="dueDate" bind:value={dueDate} />
     </label>
   </div>
-  <button on:submit={formSubmit} type="submit">Add</button>
+  <button on:submit={formSubmit} type="submit">Save</button>
 </form>
 
 <style>
@@ -180,7 +203,6 @@
     padding: 5px;
     margin-bottom: 5px;
     border-radius: 5px;
-    cursor: pointer;
   }
   .entry:hover {
     background-color: blue;

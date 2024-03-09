@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { iTodo } from "../types";
 
-  import { getContext } from "svelte";
+  import { getContext, onMount } from "svelte";
   import type { Context } from "svelte-simple-modal";
   import TodoDetail from "./TodoDetail.svelte";
+  import TodoForm from "./TodoForm.svelte";
   const { open } = getContext<Context>("simple-modal");
 
   export let todo: iTodo;
@@ -18,7 +19,8 @@
 <button
   class="todo-container"
   on:click={() => {
-    open(TodoDetail, { todo, removeTodo, editTodo });
+    console.log({ todo });
+    open(TodoForm, { todo: { ...todo }, onSubmit: editTodo });
   }}
 >
   <div class="title">

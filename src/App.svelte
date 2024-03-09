@@ -7,6 +7,7 @@
   import Modal from "svelte-simple-modal";
 
   import sampledata from "./sampledata.json";
+  import NavBar from "./lib/NavBar.svelte";
 
   let todos: iTodo[] = sampledata.todos;
 
@@ -25,6 +26,9 @@
 </script>
 
 <main>
+  <div class="header">
+    <NavBar />
+  </div>
   <div class="board-container">
     <Modal>
       <Board
@@ -48,5 +52,8 @@
   .board-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* height: 100vh; */
   }
 </style>
