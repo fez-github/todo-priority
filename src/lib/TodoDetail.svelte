@@ -9,7 +9,7 @@
     removeTodo(todo.id);
   }
 
-  function updateTodo(event: Event) {
+  function updateTodo() {
     editTodo(todo);
   }
 </script>

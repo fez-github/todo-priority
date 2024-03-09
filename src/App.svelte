@@ -54,6 +54,5 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* height: 100vh; */
   }
 </style>

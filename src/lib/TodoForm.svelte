@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import type { iTodo } from "../types";
-  import TodoDetail from "./TodoDetail.svelte";
 
   export let todo: iTodo = {
     id: Date.now(),
@@ -17,20 +15,9 @@
     dueDate: null,
   };
   export let newForm: boolean = false;
-
-  let title = "";
-  let description = "";
-
-  let urgency: number;
-  let importance: number;
-  let time: number;
-
-  let startDate: Date;
-  let dueDate: Date;
+  export let onSubmit: (todo: iTodo) => void;
 
   let newTag: string = "";
-
-  export let onSubmit: (todo: iTodo) => void;
 
   let urgentOptions: string[] = [
     "Null",
@@ -80,22 +67,6 @@
   }
 
   function formSubmit() {
-    const newTodo: iTodo = {
-      id: Date.now(),
-      title: title,
-      description: description,
-      urgency: urgency,
-      importance: importance,
-      time: time,
-      tags: todo.tags,
-      completed: false,
-      subtasks: [],
-      startDate: startDate ? startDate.toString() : null,
-      dueDate: dueDate ? dueDate.toString() : null,
-    };
-
-    console.log({ todo: newTodo });
-
     onSubmit(todo);
 
     //Reset form values.
@@ -110,10 +81,6 @@
       todo.dueDate = null;
     }
   }
-
-  onMount(() => {
-    console.log({ todo });
-  });
 </script>
 
 <form on:submit|preventDefault={formSubmit} id="todo-form">
@@ -171,11 +138,11 @@
   <div class="date-pickers">
     <label>
       Start Date:
-      <input type="date" name="startDate" bind:value={startDate} />
+      <input type="date" name="startDate" bind:value={todo.startDate} />
     </label>
     <label>
       Due Date:
-      <input type="date" name="dueDate" bind:value={dueDate} />
+      <input type="date" name="dueDate" bind:value={todo.dueDate} />
     </label>
   </div>
   <button on:submit={formSubmit} type="submit">Save</button>

@@ -19,7 +19,6 @@
 <button
   class="todo-container"
   on:click={() => {
-    console.log({ todo });
     open(TodoForm, { todo: { ...todo }, onSubmit: editTodo });
   }}
 >
