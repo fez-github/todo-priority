@@ -1,9 +1,8 @@
 <script lang="ts">
   import type { iTodo } from "../types";
 
-  import { getContext, onMount } from "svelte";
+  import { getContext } from "svelte";
   import type { Context } from "svelte-simple-modal";
-  import TodoDetail from "./TodoDetail.svelte";
   import TodoForm from "./TodoForm.svelte";
   const { open } = getContext<Context>("simple-modal");
 
@@ -13,6 +12,11 @@
 
   function deleteTodo() {
     removeTodo(todo.id);
+  }
+
+  function completeTodo() {
+    todo.completed = true;
+    editTodo(todo);
   }
 </script>
 
@@ -25,7 +29,14 @@
   <div class="title">
     {todo.title}
   </div>
-  <button class="delete" on:click={deleteTodo}>Delete</button>
+  <button class="delete" on:click|stopPropagation={deleteTodo}>Delete</button>
+  <button class="complete" on:click|stopPropagation={completeTodo}>
+    {#if todo.completed}
+      Archive
+    {:else}
+      Complete
+    {/if}
+  </button>
 </button>
 
 <style>
@@ -37,7 +48,8 @@
     margin: 10px;
     border-radius: 5px;
     align-items: center;
-    width: 400px;
+    width: 100%;
+    height: max-height;
   }
   .todo-container:hover {
     cursor: pointer;

@@ -31,7 +31,6 @@
     width: 400px;
     height: 700px;
 
-    overflow-x: auto;
     overflow-y: scroll;
   }
 </style>

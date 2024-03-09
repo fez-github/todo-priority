@@ -32,14 +32,24 @@
   <div class="board-container">
     <Modal>
       <Board
-        title="Completed Tasks"
-        todos={todos.filter((todo) => todo.completed === true)}
+        title="Inactive Tasks"
+        todos={todos.filter(
+          (todo) => todo.completed === false && !todo.startDate && !todo.dueDate
+        )}
         {removeTodo}
         {editTodo}
       />
       <Board
         title="Current Tasks"
-        todos={todos.filter((todo) => todo.completed === false)}
+        todos={todos.filter(
+          (todo) => todo.completed === false && (todo.startDate || todo.dueDate)
+        )}
+        {removeTodo}
+        {editTodo}
+      />
+      <Board
+        title="Completed Tasks"
+        todos={todos.filter((todo) => todo.completed === true)}
         {removeTodo}
         {editTodo}
       />
