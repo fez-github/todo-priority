@@ -17,4 +17,6 @@ export interface iTag {
   name: string;
 }
 
-export type kind = "completed" | "current"
+export type kind = "completed" | "current";
+
+export type due = "upcoming" | "due" | "overdue";

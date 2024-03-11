@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { iTodo } from "../types";
 
   export let todo: iTodo = {
@@ -16,6 +17,8 @@
   };
   export let newForm: boolean = false;
   export let onSubmit: (todo: iTodo) => void;
+
+  let expanded: boolean = newForm ? true : false;
 
   let newTag: string = "";
 
@@ -51,7 +54,14 @@
     "1 year",
     "Several years",
   ];
+
+  function toggleExpanded() {
+    console.log("Toggle Clicked.");
+    expanded = !expanded;
+  }
+
   function addTag(e: Event) {
+    console.log("Tag added.");
     e.preventDefault();
     if (newTag.trim() === "") return;
 
@@ -62,11 +72,13 @@
   }
 
   function removeTag(e: Event, index: number) {
+    console.log("Tag removed.");
     e.preventDefault();
     todo.tags = todo.tags.filter((_, i) => i !== index);
   }
 
   function formSubmit() {
+    console.log("Form Submitted.");
     onSubmit(todo);
 
     //Reset form values.
@@ -88,62 +100,69 @@
     Task:
     <input type="text" name="title" required bind:value={todo.title} />
   </label>
-  <label>
-    Description:
-    <textarea name="description" bind:value={todo.description} />
-  </label>
-  <div class="priorities">
+  <button type="button" on:click|preventDefault={toggleExpanded}
+    >{expanded ? "Collapse" : "Expand"}</button
+  >
+  <div class={expanded ? "" : "hidden"}>
     <label>
-      Urgency:
-      <select bind:value={todo.urgency} name="urgency">
-        {#each urgentOptions as option, index}
-          <option value={index}>{option}</option>
-        {/each}
-      </select>
+      Description:
+      <textarea name="description" bind:value={todo.description} />
     </label>
-    <label>
-      Importance:
-      <select bind:value={todo.importance} name="importance">
-        {#each importantOptions as option, index}
-          <option value={index}>{option}</option>
-        {/each}
-      </select>
-    </label>
-    <label>
-      Time:
-      <select bind:value={todo.time} name="time">
-        {#each timeOptions as option, index}
-          <option value={index}>{option}</option>
-        {/each}
-      </select>
-    </label>
-  </div>
-  <div class="tag-input">
-    <label for="tag-input">Tags:</label>
-    <div class="tag-container">
-      {#each todo.tags as tag, index}
-        <div class="tag">
-          <input class="entry" bind:value={tag} type="text" />
-          <button on:click={(e) => removeTag(e, index)}>X</button>
-        </div>
-      {/each}
+    <div class="priorities">
+      <label>
+        Urgency:
+        <select bind:value={todo.urgency} name="urgency">
+          {#each urgentOptions as option, index}
+            <option value={index}>{option}</option>
+          {/each}
+        </select>
+      </label>
+      <label>
+        Importance:
+        <select bind:value={todo.importance} name="importance">
+          {#each importantOptions as option, index}
+            <option value={index}>{option}</option>
+          {/each}
+        </select>
+      </label>
+      <label>
+        Time:
+        <select bind:value={todo.time} name="time">
+          {#each timeOptions as option, index}
+            <option value={index}>{option}</option>
+          {/each}
+        </select>
+      </label>
     </div>
-    <input
-      id="tag-input"
-      type="text"
-      bind:value={newTag}
-      on:keydown={(e) => e.key === "Enter" && addTag(e)}
-    />
-  </div>
-  <div class="date-pickers">
-    <label>
-      Start Date:
-      <input type="date" name="startDate" bind:value={todo.startDate} />
-    </label>
-    <label>
-      Due Date:
-      <input type="date" name="dueDate" bind:value={todo.dueDate} />
-    </label>
+    <div class="tag-input">
+      <label for="tag-input">Tags:</label>
+      <div class="tag-container">
+        {#each todo.tags as tag, index}
+          <div class="tag">
+            <input class="entry" bind:value={tag} type="text" />
+            <button type="button" on:click={(e) => removeTag(e, index)}
+              >X</button
+            >
+          </div>
+        {/each}
+      </div>
+      <input
+        id="tag-input"
+        type="text"
+        bind:value={newTag}
+        on:keydown={(e) => e.key === "Enter" && addTag(e)}
+      />
+    </div>
+    <div class="date-pickers">
+      <label>
+        Start Date:
+        <input type="date" name="startDate" bind:value={todo.startDate} />
+      </label>
+      <label>
+        Due Date:
+        <input type="date" name="dueDate" bind:value={todo.dueDate} />
+      </label>
+    </div>
   </div>
   <button on:submit={formSubmit} type="submit">Save</button>
 </form>
@@ -186,5 +205,9 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(100px, 3fr));
     gap: 5px;
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
