@@ -98,9 +98,18 @@
 <form on:submit|preventDefault={formSubmit} id="todo-form">
   <label>
     Task:
-    <input type="text" name="title" required bind:value={todo.title} />
+    <input
+      type="text"
+      name="title"
+      title="Enter your task.  This is the only mandatory field."
+      required
+      bind:value={todo.title}
+    />
   </label>
-  <button type="button" on:click|preventDefault={toggleExpanded}
+  <button
+    type="button"
+    title="Show/hide extra form inputs."
+    on:click|preventDefault={toggleExpanded}
     >{expanded ? "Collapse" : "Expand"}</button
   >
   <div class={expanded ? "" : "hidden"}>
@@ -111,7 +120,11 @@
     <div class="priorities">
       <label>
         Urgency:
-        <select bind:value={todo.urgency} name="urgency">
+        <select
+          bind:value={todo.urgency}
+          name="urgency"
+          title="Set how urgent this task is."
+        >
           {#each urgentOptions as option, index}
             <option value={index}>{option}</option>
           {/each}
@@ -119,7 +132,11 @@
       </label>
       <label>
         Importance:
-        <select bind:value={todo.importance} name="importance">
+        <select
+          bind:value={todo.importance}
+          name="importance"
+          title="Set how important this task is."
+        >
           {#each importantOptions as option, index}
             <option value={index}>{option}</option>
           {/each}
@@ -127,7 +144,11 @@
       </label>
       <label>
         Time:
-        <select bind:value={todo.time} name="time">
+        <select
+          bind:value={todo.time}
+          name="time"
+          title="Set how long you think this task may take."
+        >
           {#each timeOptions as option, index}
             <option value={index}>{option}</option>
           {/each}
@@ -135,7 +156,11 @@
       </label>
     </div>
     <div class="tag-input">
-      <label for="tag-input">Tags:</label>
+      <label
+        for="tag-input"
+        title="Tags are used to help with searching or grouping similar tasks."
+        >Tags:</label
+      >
       <div class="tag-container">
         {#each todo.tags as tag, index}
           <div class="tag">
@@ -150,21 +175,32 @@
         id="tag-input"
         type="text"
         bind:value={newTag}
+        title="Enter a tag.  Press enter to add it."
         on:keydown={(e) => e.key === "Enter" && addTag(e)}
       />
     </div>
     <div class="date-pickers">
       <label>
         Start Date:
-        <input type="date" name="startDate" bind:value={todo.startDate} />
+        <input
+          type="date"
+          name="startDate"
+          title="Date in which this task starts."
+          bind:value={todo.startDate}
+        />
       </label>
       <label>
         Due Date:
-        <input type="date" name="dueDate" bind:value={todo.dueDate} />
+        <input
+          type="date"
+          name="dueDate"
+          title="Date in which this task should be finished.."
+          bind:value={todo.dueDate}
+        />
       </label>
     </div>
   </div>
-  <button on:submit={formSubmit} type="submit">Save</button>
+  <button on:submit={formSubmit} type="submit" title="Add task.">Save</button>
 </form>
 
 <style>

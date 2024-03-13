@@ -13,13 +13,14 @@
   let startSoon: boolean = false;
   let dueSoon: boolean = false;
 
-  $: {
-    startSoon = todo.startDate
-      ? new Date(todo.startDate).getTime() < new Date().getTime()
-      : false;
-    dueSoon = todo.dueDate
-      ? new Date(todo.dueDate).getTime() < new Date().getTime()
-      : false;
+  //Check if start date or due date is within 1 week from now.
+  if (todo.startDate) {
+    const date = new Date(todo.startDate);
+    startSoon = date < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  }
+  if (todo.dueDate) {
+    const date = new Date(todo.dueDate);
+    dueSoon = date < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   }
 
   function deleteTodo() {
