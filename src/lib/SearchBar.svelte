@@ -1,0 +1,21 @@
+<script lang="ts">
+  export let label: string = "Label";
+  export let title: string = "Tooltip";
+  export let submitValue: (str: string) => void;
+
+  function onChange(e: Event) {
+    let searchTerm = (e.target as HTMLInputElement).value;
+    submitValue(searchTerm);
+  }
+</script>
+
+<label
+  >{label}
+  <input
+    type="text"
+    {title}
+    on:input={(e) => onChange(e)}
+    on:submit|preventDefault
+  />
+  <button type="button">Search</button>
+</label>

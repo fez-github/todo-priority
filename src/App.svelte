@@ -8,8 +8,34 @@
 
   import sampledata from "./sampledata.json";
   import NavBar from "./lib/NavBar.svelte";
+  import SearchBar from "./lib/SearchBar.svelte";
 
   let todos: iTodo[] = sampledata.todos;
+  let filteredTodos: iTodo[] = todos;
+
+  $: {
+    filteredTodos = todos;
+  }
+
+  function filterTodos(str: string) {
+    if (!str) {
+      filteredTodos = todos;
+      return;
+    }
+
+    filteredTodos = todos.filter((todo) => {
+      if (!todo.tags) return false;
+      let hasMatch: boolean = false;
+
+      for (let tag of todo.tags) {
+        if (tag.toLowerCase().match(new RegExp(`^${str}`))) {
+          hasMatch = true;
+          break;
+        }
+      }
+      return hasMatch;
+    });
+  }
 
   function addTodo(todo: iTodo) {
     todos = [...todos, todo];
@@ -29,11 +55,16 @@
   <div class="header">
     <NavBar />
   </div>
+  <SearchBar
+    label="Tag Search"
+    title="Filter tasks by tag."
+    submitValue={filterTodos}
+  />
   <div class="board-container">
     <Modal>
       <Board
         title="Inactive Tasks"
-        todos={todos.filter(
+        todos={filteredTodos.filter(
           (todo) => todo.completed === false && !todo.startDate && !todo.dueDate
         )}
         {removeTodo}
@@ -41,7 +72,7 @@
       />
       <Board
         title="Current Tasks"
-        todos={todos.filter(
+        todos={filteredTodos.filter(
           (todo) => todo.completed === false && (todo.startDate || todo.dueDate)
         )}
         {removeTodo}
@@ -49,7 +80,7 @@
       />
       <Board
         title="Completed Tasks"
-        todos={todos.filter((todo) => todo.completed === true)}
+        todos={filteredTodos.filter((todo) => todo.completed === true)}
         {removeTodo}
         {editTodo}
       />

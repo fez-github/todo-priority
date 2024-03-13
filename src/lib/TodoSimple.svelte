@@ -36,7 +36,7 @@
 <button
   class="todo-container"
   on:click={() => {
-    open(TodoForm, { todo: { ...todo }, onSubmit: editTodo });
+    open(TodoForm, { todo: { ...todo }, onSubmit: editTodo, newForm: false });
   }}
 >
   <div class="title">
