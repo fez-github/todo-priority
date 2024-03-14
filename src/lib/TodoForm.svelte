@@ -15,12 +15,16 @@
     startDate: null,
     dueDate: null,
   };
-  export let newForm: boolean = false;
+  export let newForm: boolean = true;
   export let onSubmit: (todo: iTodo) => void;
 
-  let expanded: boolean = newForm ? true : false;
+  let expanded: boolean = newForm ? false : true;
 
   let newTag: string = "";
+
+  onMount(() => {
+    console.log({newForm})
+  })
 
   let urgentOptions: string[] = [
     "Null",
