@@ -51,10 +51,10 @@
   }
 </script>
 
-<main>
-  <div class="header">
+<main class="main-layout">
+  <!-- <div class="header"> -->
     <NavBar />
-  </div>
+  <!-- </div> -->
   <SearchBar
     label="Tag Search"
     title="Filter tasks by tag."
@@ -94,6 +94,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .main-layout {
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
 </style>
