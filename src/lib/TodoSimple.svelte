@@ -1,3 +1,5 @@
+<!--Object that displays simple information about a todo.  
+  Allows basic interaction, such as marking a task as complete.-->
 <script lang="ts">
   import type { iTodo } from "../types";
 

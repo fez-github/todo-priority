@@ -1,18 +1,15 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+  import { onMount } from "svelte";
 
-
-  let nav: HTMLDivElement
-  const observer = new IntersectionObserver( 
-  ([e]) => e.target.classList.toggle('scrolling', e.intersectionRatio < 1),
-  {threshold: [1]}
-);
+  let nav: HTMLDivElement;
+  const observer = new IntersectionObserver(
+    ([e]) => e.target.classList.toggle("scrolling", e.intersectionRatio < 1),
+    { threshold: [1] }
+  );
 
   onMount(() => {
-    observer.observe(nav)
-
-  })
-
+    observer.observe(nav);
+  });
 </script>
 
 <div bind:this={nav} class="nav-bar">

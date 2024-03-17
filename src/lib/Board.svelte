@@ -1,3 +1,4 @@
+<!--Container for holding tasks.-->
 <script lang="ts">
   import type { iTodo } from "../types";
   import TodoSimple from "./TodoSimple.svelte";

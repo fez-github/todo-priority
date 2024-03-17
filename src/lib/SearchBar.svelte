@@ -1,6 +1,7 @@
 <script lang="ts">
   export let label: string = "Label";
   export let title: string = "Tooltip";
+  export let placeholder: string = "Placeholder";
   export let submitValue: (str: string) => void;
 
   function onChange(e: Event) {
@@ -14,6 +15,7 @@
   <input
     type="text"
     {title}
+    {placeholder}
     on:input={(e) => onChange(e)}
     on:submit|preventDefault
   />

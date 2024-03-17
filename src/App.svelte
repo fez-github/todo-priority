@@ -27,6 +27,7 @@
       if (!todo.tags) return false;
       let hasMatch: boolean = false;
 
+      //Use Regex to check for any words that start with the search string.
       for (let tag of todo.tags) {
         if (tag.toLowerCase().match(new RegExp(`^${str}`))) {
           hasMatch = true;
@@ -39,7 +40,6 @@
 
   function addTodo(todo: iTodo) {
     todos = [...todos, todo];
-    console.log({ todos });
   }
 
   function removeTodo(id: number) {
@@ -52,12 +52,11 @@
 </script>
 
 <main class="main-layout">
-  <!-- <div class="header"> -->
-    <NavBar />
-  <!-- </div> -->
+  <NavBar />
   <SearchBar
     label="Tag Search"
     title="Filter tasks by tag."
+    placeholder="Search tags..."
     submitValue={filterTodos}
   />
   <div class="board-container">

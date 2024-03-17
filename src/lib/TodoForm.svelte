@@ -1,3 +1,4 @@
+<!--Form for adding and editing Todo information.-->
 <script lang="ts">
   import { onMount } from "svelte";
   import type { iTodo } from "../types";
@@ -23,8 +24,8 @@
   let newTag: string = "";
 
   onMount(() => {
-    console.log({newForm})
-  })
+    console.log({ newForm });
+  });
 
   let urgentOptions: string[] = [
     "Null",
@@ -106,6 +107,7 @@
       type="text"
       name="title"
       title="Enter your task.  This is the only mandatory field."
+      placeholder="Enter task..."
       required
       bind:value={todo.title}
     />
@@ -116,10 +118,14 @@
     on:click|preventDefault={toggleExpanded}
     >{expanded ? "Collapse" : "Expand"}</button
   >
-  <div class={expanded ? "" : "hidden"}>
+  <div class={expanded ? "detail " : "detail hidden"}>
     <label>
       Description:
-      <textarea name="description" bind:value={todo.description} />
+      <textarea
+        name="description"
+        placeholder="Describe any details for your task."
+        bind:value={todo.description}
+      />
     </label>
     <div class="priorities">
       <label>
@@ -180,6 +186,7 @@
         type="text"
         bind:value={newTag}
         title="Enter a tag.  Press enter to add it."
+        placeholder="Type a tag..."
         on:keydown={(e) => e.key === "Enter" && addTag(e)}
       />
     </div>
@@ -249,5 +256,11 @@
 
   .hidden {
     display: none;
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 </style>
