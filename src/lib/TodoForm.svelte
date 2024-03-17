@@ -1,6 +1,5 @@
 <!--Form for adding and editing Todo information.-->
 <script lang="ts">
-  import { onMount } from "svelte";
   import type { iTodo } from "../types";
 
   export let todo: iTodo = {
@@ -16,16 +15,13 @@
     startDate: null,
     dueDate: null,
   };
+
   export let newForm: boolean = true;
   export let onSubmit: (todo: iTodo) => void;
 
   let expanded: boolean = newForm ? false : true;
 
   let newTag: string = "";
-
-  onMount(() => {
-    console.log({ newForm });
-  });
 
   let urgentOptions: string[] = [
     "Null",
@@ -61,12 +57,10 @@
   ];
 
   function toggleExpanded() {
-    console.log("Toggle Clicked.");
     expanded = !expanded;
   }
 
   function addTag(e: Event) {
-    console.log("Tag added.");
     e.preventDefault();
     if (newTag.trim() === "") return;
 
@@ -77,14 +71,12 @@
   }
 
   function removeTag(e: Event, index: number) {
-    console.log("Tag removed.");
     e.preventDefault();
     todo.tags = todo.tags.filter((_, i) => i !== index);
   }
 
   function formSubmit() {
-    console.log("Form Submitted.");
-    onSubmit(todo);
+    onSubmit({ ...todo });
 
     //Reset form values.
     if (newForm) {
@@ -118,7 +110,7 @@
     on:click|preventDefault={toggleExpanded}
     >{expanded ? "Collapse" : "Expand"}</button
   >
-  <div class={expanded ? "detail " : "detail hidden"}>
+  <div class={expanded ? "detail" : "hidden"}>
     <label>
       Description:
       <textarea

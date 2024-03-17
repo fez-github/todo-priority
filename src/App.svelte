@@ -6,11 +6,13 @@
 
   import Modal from "svelte-simple-modal";
 
-  import sampledata from "./sampledata.json";
   import NavBar from "./lib/NavBar.svelte";
   import SearchBar from "./lib/SearchBar.svelte";
+  import { LocalStorageFetcher } from "./localstoragefetch";
 
-  let todos: iTodo[] = sampledata.todos;
+  const todoFetcher = new LocalStorageFetcher();
+
+  let todos: iTodo[] = todoFetcher.initializeTodos();
   let filteredTodos: iTodo[] = todos;
 
   $: {
@@ -38,16 +40,34 @@
     });
   }
 
+  function sortTodos(priority: "urgency" | "importance" | "time" | "reset") {
+    if (priority === "urgency") {
+      todos = [...todos.sort((a, b) => a.urgency - b.urgency)];
+    }
+    if (priority === "importance") {
+      todos = [...todos.sort((a, b) => a.importance - b.importance)];
+    }
+    if (priority === "time") {
+      todos = [...todos.sort((a, b) => a.time - b.time)];
+    }
+    if (priority === "reset") {
+      todos = [...todos.sort((a, b) => a.id - b.id)];
+    }
+  }
+
   function addTodo(todo: iTodo) {
     todos = [...todos, todo];
+    todoFetcher.addTodo(todo);
   }
 
   function removeTodo(id: number) {
     todos = todos.filter((todo) => todo.id !== id);
+    todoFetcher.removeTodo(id);
   }
 
   function editTodo(todo: iTodo) {
     todos = todos.map((t) => (t.id === todo.id ? todo : t));
+    todoFetcher.updateTodo(todo);
   }
 </script>
 
@@ -59,6 +79,15 @@
     placeholder="Search tags..."
     submitValue={filterTodos}
   />
+  <button type="button" on:click={() => sortTodos("urgency")}
+    >Sort by Urgency</button
+  >
+  <button type="button" on:click={() => sortTodos("importance")}>
+    Sort by Importance
+  </button>
+  <button type="button" on:click={() => sortTodos("time")}>Sort by Time</button>
+  <button type="button" on:click={() => sortTodos("reset")}>Reset</button>
+
   <div class="board-container">
     <Modal>
       <Board
