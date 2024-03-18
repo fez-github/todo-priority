@@ -114,7 +114,9 @@
       />
     </Modal>
   </div>
-  <TodoForm onSubmit={addTodo} />
+  <Modal>
+    <TodoForm onSubmit={addTodo} />
+  </Modal>
 </main>
 
 <style>

@@ -2,6 +2,11 @@
 <script lang="ts">
   import type { iTodo } from "../types";
 
+  import { getContext } from "svelte";
+  import type { Context } from "svelte-simple-modal";
+
+  const { close } = getContext<Context>("simple-modal");
+
   export let todo: iTodo = {
     id: Date.now(),
     title: "",
@@ -89,6 +94,7 @@
       todo.startDate = null;
       todo.dueDate = null;
     }
+    close();
   }
 </script>
 
