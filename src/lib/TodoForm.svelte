@@ -29,7 +29,7 @@
   let newTag: string = "";
 
   let urgentOptions: string[] = [
-    "Null",
+    "",
     "Not urgent",
     "A little urgent",
     "Somewhat urgent",
@@ -37,7 +37,7 @@
     "Extremely urgent",
   ];
   let importantOptions: string[] = [
-    "Null",
+    "",
     "Not important",
     "A little important",
     "Somewhat important",
@@ -45,7 +45,7 @@
     "Extremely important",
   ];
   let timeOptions: string[] = [
-    "Null",
+    "",
     "A couple minutes",
     "Several minutes",
     "Half an hour",
@@ -128,39 +128,36 @@
     <div class="priorities">
       <label>
         Urgency:
-        <select
-          bind:value={todo.urgency}
-          name="urgency"
+        <input
+          type="range"
+          min="0"
           title="Set how urgent this task is."
-        >
-          {#each urgentOptions as option, index}
-            <option value={index}>{option}</option>
-          {/each}
-        </select>
+          max={urgentOptions.length - 1}
+          bind:value={todo.urgency}
+        />
+        <span>{urgentOptions[todo.urgency]}</span>
       </label>
       <label>
         Importance:
-        <select
+        <input
+          type="range"
+          min="0"
+          title="Set how urgent this task is."
+          max={importantOptions.length - 1}
           bind:value={todo.importance}
-          name="importance"
-          title="Set how important this task is."
-        >
-          {#each importantOptions as option, index}
-            <option value={index}>{option}</option>
-          {/each}
-        </select>
+        />
+        <span>{importantOptions[todo.importance]}</span>
       </label>
       <label>
         Time:
-        <select
+        <input
+          type="range"
+          min="0"
+          title="Set how urgent this task is."
+          max={timeOptions.length - 1}
           bind:value={todo.time}
-          name="time"
-          title="Set how long you think this task may take."
-        >
-          {#each timeOptions as option, index}
-            <option value={index}>{option}</option>
-          {/each}
-        </select>
+        />
+        <span>{timeOptions[todo.time]}</span>
       </label>
     </div>
     <div class="tag-input">

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "./app.css";
   import type { iTodo } from "./types";
 
   import Board from "./lib/Board.svelte";

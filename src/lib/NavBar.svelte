@@ -13,7 +13,7 @@
 </script>
 
 <div bind:this={nav} class="nav-bar">
-  <h1>Calendar</h1>
+  <h1 class="m-3 uppercase">Calendar</h1>
   <h1>Todo List</h1>
   <h1>New Task</h1>
 </div>
