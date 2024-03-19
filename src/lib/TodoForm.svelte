@@ -24,7 +24,7 @@
   export let newForm: boolean = true;
   export let onSubmit: (todo: iTodo) => void;
 
-  let expanded: boolean = newForm ? false : true;
+  let expanded: boolean = true; //newForm ? false : true;
 
   let newTag: string = "";
 
@@ -98,94 +98,109 @@
   }
 </script>
 
-<form on:submit|preventDefault={formSubmit} id="todo-form">
-  <label>
-    Task:
-    <input
-      type="text"
-      name="title"
-      title="Enter your task.  This is the only mandatory field."
-      placeholder="Enter task..."
-      required
-      bind:value={todo.title}
-    />
-  </label>
-  <button
-    type="button"
-    title="Show/hide extra form inputs."
-    on:click|preventDefault={toggleExpanded}
-    >{expanded ? "Collapse" : "Expand"}</button
-  >
-  <div class={expanded ? "detail" : "hidden"}>
+<form
+  on:submit|preventDefault={formSubmit}
+  class="border flex flex-col items-center m-2.5 p-2.5
+  rounded-[10px] border-solid border-[black]"
+>
+  <div class="flex flex-row w-full">
+    <label class="flex-grow">
+      Task:
+      <input
+        type="text"
+        name="title"
+        title="Enter your task.  This is the only mandatory field."
+        placeholder="Enter task..."
+        required
+        bind:value={todo.title}
+      />
+    </label>
+    <button
+      type="button"
+      title="Show/hide extra form inputs."
+      on:click|preventDefault={toggleExpanded}
+      >{expanded ? "Collapse" : "Expand"}</button
+    >
+  </div>
+
+  <div class={expanded ? "flex flex-col items-center" : "hidden"}>
     <label>
       Description:
       <textarea
+        class="block overflow-scroll"
         name="description"
         placeholder="Describe any details for your task."
         bind:value={todo.description}
       />
     </label>
-    <div class="priorities">
-      <label>
-        Urgency:
+    <div class="flex flex-col items-center gap-2.5;">
+      <div>
+        <div class="flex flex-row justify-between">
+        <label for="urgency">Urgency:</label>
+        <span>{urgentOptions[todo.urgency]}</span>
+      </div>
         <input
+          class="block"
           type="range"
+          name="urgency"
           min="0"
           title="Set how urgent this task is."
           max={urgentOptions.length - 1}
           bind:value={todo.urgency}
         />
-        <span>{urgentOptions[todo.urgency]}</span>
-      </label>
-      <label>
-        Importance:
+      </div>
+      <div>
+        <label for="importance">Importance:</label>
+        <span>{importantOptions[todo.importance]}</span>
         <input
+          class="block"
           type="range"
+          name="importance"
           min="0"
-          title="Set how urgent this task is."
+          title="Set how important this task is."
           max={importantOptions.length - 1}
           bind:value={todo.importance}
         />
-        <span>{importantOptions[todo.importance]}</span>
-      </label>
-      <label>
-        Time:
+      </div>
+      <div>
+        <label for="time">Time:</label>
+        <span>{timeOptions[todo.time]}</span>
         <input
+          class="block"
           type="range"
+          name="time"
           min="0"
-          title="Set how urgent this task is."
+          title="Set how much time this task will take."
           max={timeOptions.length - 1}
           bind:value={todo.time}
         />
-        <span>{timeOptions[todo.time]}</span>
-      </label>
+      </div>
     </div>
-    <div class="tag-input">
+    <div class="flex flex-col items-center border rounded-[10px] border-solid border-[black]">
       <label
         for="tag-input"
         title="Tags are used to help with searching or grouping similar tasks."
-        >Tags:</label
+        >Tags: <input
+          id="tag-input"
+          type="text"
+          bind:value={newTag}
+          title="Enter a tag.  Press enter to add it."
+          placeholder="Type a tag..."
+          on:keydown={(e) => e.key === "Enter" && addTag(e)}
+        /></label
       >
-      <div class="tag-container">
+      <div class="grid grid-cols-[repeat(3,minmax(50px,3fr))] gap-[5px]">
         {#each todo.tags as tag, index}
           <div class="tag">
-            <input class="entry" bind:value={tag} type="text" />
+            <input class="bg-[darkblue] text-[white] mb-[5px] p-[5px] rounded-[5px] hover:bg-[blue]" bind:value={tag} type="text" />
             <button type="button" on:click={(e) => removeTag(e, index)}
               >X</button
             >
           </div>
         {/each}
       </div>
-      <input
-        id="tag-input"
-        type="text"
-        bind:value={newTag}
-        title="Enter a tag.  Press enter to add it."
-        placeholder="Type a tag..."
-        on:keydown={(e) => e.key === "Enter" && addTag(e)}
-      />
     </div>
-    <div class="date-pickers">
+    <div class="flex flex-col;">
       <label>
         Start Date:
         <input
@@ -208,54 +223,3 @@
   </div>
   <button on:submit={formSubmit} type="submit" title="Add task.">Save</button>
 </form>
-
-<style>
-  .priorities {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  #todo-form {
-    border-radius: 10px;
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .entry {
-    background-color: darkblue;
-    color: white;
-    padding: 5px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-  }
-  .entry:hover {
-    background-color: blue;
-  }
-  .tag-input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 10px;
-    border: 1px solid black;
-  }
-
-  .tag-container {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 3fr));
-    gap: 5px;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .detail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-</style>

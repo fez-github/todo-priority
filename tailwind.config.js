@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: ["prettier-plugin-tailwindcss"],
   corePlugins: {
     preflight: false,
   },
