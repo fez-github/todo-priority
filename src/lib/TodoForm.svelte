@@ -4,6 +4,7 @@
 
   import { getContext } from "svelte";
   import type { Context } from "svelte-simple-modal";
+  import InputRange from "./InputRange.svelte";
 
   const { close } = getContext<Context>("simple-modal");
 
@@ -134,49 +135,37 @@
       />
     </label>
     <div class="flex flex-col items-center gap-2.5;">
-      <div>
-        <div class="flex flex-row justify-between">
-        <label for="urgency">Urgency:</label>
-        <span>{urgentOptions[todo.urgency]}</span>
-      </div>
-        <input
-          class="block"
-          type="range"
-          name="urgency"
-          min="0"
-          title="Set how urgent this task is."
-          max={urgentOptions.length - 1}
-          bind:value={todo.urgency}
-        />
-      </div>
-      <div>
-        <label for="importance">Importance:</label>
-        <span>{importantOptions[todo.importance]}</span>
-        <input
-          class="block"
-          type="range"
-          name="importance"
-          min="0"
-          title="Set how important this task is."
-          max={importantOptions.length - 1}
-          bind:value={todo.importance}
-        />
-      </div>
-      <div>
-        <label for="time">Time:</label>
-        <span>{timeOptions[todo.time]}</span>
-        <input
-          class="block"
-          type="range"
-          name="time"
-          min="0"
-          title="Set how much time this task will take."
-          max={timeOptions.length - 1}
-          bind:value={todo.time}
-        />
-      </div>
+      <InputRange
+        labelText="Urgency"
+        valueText={urgentOptions[todo.urgency]}
+        name="urgency"
+        title="Set how urgent this task is."
+        min={0}
+        max={urgentOptions.length - 1}
+        bind:value={todo.urgency}
+      />
+      <InputRange
+        labelText="Importance"
+        valueText={importantOptions[todo.importance]}
+        name="importance"
+        title="Set how important this task is."
+        min={0}
+        max={importantOptions.length - 1}
+        bind:value={todo.importance}
+      />
+      <InputRange
+        labelText="Time"
+        valueText={timeOptions[todo.time]}
+        name="time"
+        title="Set how much time this task will take."
+        min={0}
+        max={timeOptions.length - 1}
+        bind:value={todo.time}
+      />
     </div>
-    <div class="flex flex-col items-center border rounded-[10px] border-solid border-[black]">
+    <div
+      class="flex flex-col items-center border rounded-[10px] border-solid border-[black]"
+    >
       <label
         for="tag-input"
         title="Tags are used to help with searching or grouping similar tasks."
@@ -192,7 +181,11 @@
       <div class="grid grid-cols-[repeat(3,minmax(50px,3fr))] gap-[5px]">
         {#each todo.tags as tag, index}
           <div class="tag">
-            <input class="bg-[darkblue] text-[white] mb-[5px] p-[5px] rounded-[5px] hover:bg-[blue]" bind:value={tag} type="text" />
+            <input
+              class="bg-[darkblue] text-[white] mb-[5px] p-[5px] rounded-[5px] hover:bg-[blue]"
+              bind:value={tag}
+              type="text"
+            />
             <button type="button" on:click={(e) => removeTag(e, index)}
               >X</button
             >
