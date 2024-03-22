@@ -1,3 +1,4 @@
+<!--Range input that has descriptive tesk for each value of the range.-->
 <script lang="ts">
   export let label: string = "Label";
   export let title: string = "Tooltip";

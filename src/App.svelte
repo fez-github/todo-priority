@@ -72,7 +72,7 @@
   }
 </script>
 
-<main class="main-layout">
+<main class="flex flex-col items-center">
   <NavBar />
   <SearchBar
     label="Tag Search"
@@ -89,7 +89,7 @@
   <button type="button" on:click={() => sortTodos("time")}>Sort by Time</button>
   <button type="button" on:click={() => sortTodos("reset")}>Reset</button>
 
-  <div class="board-container">
+  <div class="flex flex-row self-start">
     <Modal>
       <Board
         title="Inactive Tasks"
@@ -117,22 +117,7 @@
   </div>
   <Modal>
     <div>
-    <TodoForm onSubmit={addTodo} />
+      <TodoForm onSubmit={addTodo} />
     </div>
   </Modal>
 </main>
-
-<style>
-  .board-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .main-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-</style>

@@ -5,5 +5,5 @@ export abstract class TodoFetcher {
   abstract getTodos(): Promise<iTodo[]>;
   abstract addTodo(todo: iTodo): Promise<iTodo>;
   abstract updateTodo(todo: iTodo): Promise<iTodo>;
-  abstract removeTodo(id: number): Promise<void>;
+  abstract removeTodo(id: number): Promise<iTodo>;
 }

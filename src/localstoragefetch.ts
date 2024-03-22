@@ -22,12 +22,14 @@ export class LocalStorageFetcher implements TodoFetcher {
     localStorage.setItem("todos", JSON.stringify(todos));
     return Promise.resolve(todo);
   }
-  removeTodo(id: number): Promise<void> {
+  removeTodo(id: number): Promise<iTodo> {
     const todos = JSON.parse(localStorage.getItem("todos") || "[]");
     const index = todos.findIndex((t: iTodo) => t.id === id);
+    const todo = todos[index];
+
     todos.splice(index, 1);
     localStorage.setItem("todos", JSON.stringify(todos));
-    return Promise.resolve();
+    return Promise.resolve(todo);
   }
   initializeTodos(): iTodo[] {
     const localTodos = JSON.parse(localStorage.getItem("todos") || "[]");
