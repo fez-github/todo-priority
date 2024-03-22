@@ -104,18 +104,18 @@
   class="border flex flex-col items-center m-2.5 p-2.5
   rounded-[10px] border-solid border-[black]"
 >
-  <div class="flex flex-row w-full">
-    <label class="flex-grow">
-      Task:
-      <input
-        type="text"
-        name="title"
-        title="Enter your task.  This is the only mandatory field."
-        placeholder="Enter task..."
-        required
-        bind:value={todo.title}
-      />
-    </label>
+  <div class="flex flex-row w-full gap-3">
+    <label for="title"> Task: </label>
+    <input
+      type="text"
+      name="title"
+      id="title"
+      class="w-8/12 flex-grow"
+      title="Enter your task.  This is the only mandatory field."
+      placeholder="Enter task..."
+      required
+      bind:value={todo.title}
+    />
     <button
       type="button"
       title="Show/hide extra form inputs."
@@ -124,17 +124,17 @@
     >
   </div>
 
-  <div class={expanded ? "flex flex-col items-center" : "hidden"}>
-    <label>
+  <div class={expanded ? "flex flex-col items-center gap-2" : "hidden"}>
+    <label class="w-1/2">
       Description:
       <textarea
-        class="block overflow-scroll"
+        class="block overflow-scroll w-full"
         name="description"
         placeholder="Describe any details for your task."
         bind:value={todo.description}
       />
     </label>
-    <div class="flex flex-col items-center gap-2.5;">
+    <div class="flex flex-col items-center w-full">
       <InputRange
         labelText="Urgency"
         valueText={urgentOptions[todo.urgency]}
@@ -164,10 +164,11 @@
       />
     </div>
     <div
-      class="flex flex-col items-center border rounded-[10px] border-solid border-[black]"
+      class="flex w-full flex-col items-center border rounded-[10px] border-solid border-[black]"
     >
       <label
         for="tag-input"
+        class="my-2"
         title="Tags are used to help with searching or grouping similar tasks."
         >Tags: <input
           id="tag-input"
@@ -178,11 +179,11 @@
           on:keydown={(e) => e.key === "Enter" && addTag(e)}
         /></label
       >
-      <div class="grid grid-cols-[repeat(3,minmax(50px,3fr))] gap-[5px]">
+      <div class="flex flex-row flex-wrap gap-2">
         {#each todo.tags as tag, index}
-          <div class="tag">
+          <div class="tag flex flex-row">
             <input
-              class="bg-[darkblue] text-[white] mb-[5px] p-[5px] rounded-[5px] hover:bg-[blue]"
+              class="bg-[darkblue] text-[white] m-1 rounded hover:bg-blue-700"
               bind:value={tag}
               type="text"
             />
@@ -193,7 +194,7 @@
         {/each}
       </div>
     </div>
-    <div class="flex flex-col;">
+    <div class="flex flex-col gap-2">
       <label>
         Start Date:
         <input
@@ -214,5 +215,7 @@
       </label>
     </div>
   </div>
-  <button on:submit={formSubmit} type="submit" title="Add task.">Save</button>
+  <button class="my-2" on:submit={formSubmit} type="submit" title="Add task."
+    >Save</button
+  >
 </form>
