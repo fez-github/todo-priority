@@ -102,7 +102,7 @@
 <form
   on:submit|preventDefault={formSubmit}
   class="border flex flex-col items-center m-2.5 p-2.5
-  rounded-[10px] border-solid border-[black]"
+  rounded-[10px] border-solid border-[black] w-[600px]"
 >
   <div class="flex flex-row w-full gap-3">
     <label for="title"> Task: </label>
@@ -124,7 +124,7 @@
     >
   </div>
 
-  <div class={expanded ? "flex flex-col items-center gap-2" : "hidden"}>
+  <div class={expanded ? "flex flex-col items-center gap-2 w-full" : "hidden"}>
     <label class="w-1/2">
       Description:
       <textarea
@@ -164,7 +164,7 @@
       />
     </div>
     <div
-      class="flex w-full flex-col items-center border rounded-[10px] border-solid border-[black]"
+      class="flex w-full flex-col items-center border rounded-lg border-solid border-[black]"
     >
       <label
         for="tag-input"
