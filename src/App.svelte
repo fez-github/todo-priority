@@ -10,8 +10,14 @@
   import NavBar from "./lib/NavBar.svelte";
   import SearchBar from "./lib/SearchBar.svelte";
   import { LocalStorageFetcher } from "./localstoragefetch";
+  import Calendar from "./lib/Calendar.svelte";
 
   const todoFetcher = new LocalStorageFetcher();
+
+  let mode: "calendar" | "board" = "board";
+  function toggleMode() {
+    mode = mode === "calendar" ? "board" : "calendar";
+  }
 
   let todos: iTodo[] = todoFetcher.initializeTodos();
   let filteredTodos: iTodo[] = todos;
@@ -88,7 +94,9 @@
   </button>
   <button type="button" on:click={() => sortTodos("time")}>Sort by Time</button>
   <button type="button" on:click={() => sortTodos("reset")}>Reset</button>
+  <button type="button" on:click={() => toggleMode}>Mode Shift</button>
 
+  <Calendar />
   <div class="flex flex-row self-start">
     <Modal>
       <Board

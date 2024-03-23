@@ -102,7 +102,7 @@
 <form
   on:submit|preventDefault={formSubmit}
   class="border flex flex-col items-center m-2.5 p-2.5
-  rounded-[10px] border-solid border-[black] w-[600px]"
+  rounded-[10px] border-solid border-[black] w-[50vw] max-w-[600px]"
 >
   <div class="flex flex-row w-full gap-3">
     <label for="title"> Task: </label>
