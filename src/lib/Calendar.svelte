@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import TodoDay from './TodoDay.svelte'
+  import TodoDay from "./TodoDay.svelte";
   import type { iCalendarDay, iTodo } from "../types";
 
-  export let timedTodos: iTodo[] = [
+  export let todos: iTodo[] = [
     {
       id: Date.now(),
       title: "Test Title",
@@ -18,20 +18,17 @@
       dueDate: "2024-03-05",
     },
   ];
+
   export let editTodo: (todo: iTodo) => void;
 
   let currentDate: Date = new Date();
   let calendarDays: iCalendarDay[] = [];
 
-  let currentDay = currentDate.getDate();
   let currentMonth: number = currentDate.getMonth() + 1;
   let currentYear: number = currentDate.getFullYear();
 
-  let firstWeekday: number = 0;
-  let lastDay: number = 0;
-
-  firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
-  lastDay = new Date(currentYear, currentMonth, 0).getDate();
+  let firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
+  let lastDay = new Date(currentYear, currentMonth, 0).getDate();
 
   function generateCalendar(): void {
     console.log({ currentMonth });
@@ -39,12 +36,20 @@
 
     //Generate empty days before the first day of the month.
     for (let i = 0; i < firstWeekday; i++) {
-      calendarDays.push({ date: "", todos: [] });
+      calendarDays.push({
+        date: "",
+        todos: [],
+        todoIndexes: [],
+      });
     }
 
     //Generate days in the month.
     for (let i = 1; i <= lastDay; i++) {
-      calendarDays.push({ date: i, todos: [] });
+      calendarDays.push({
+        date: i,
+        todos: [],
+        todoIndexes: [],
+      });
     }
     console.log("Generated!");
   }
@@ -52,15 +57,16 @@
   //Add each task to the correct day.
   //Month & date functions assume yyyy-mm-dd format.
   function populateDays() {
-
-    for (let todo of timedTodos) {
-      let month = todo.dueDate?.substring(5, 7).replaceAll("0", "") as string;
+    for (let i = 0; i < todos.length; i++) {
+      let month = todos[i].dueDate?.substring(5, 7).replaceAll("0", "");
       if (month !== currentMonth.toString()) continue;
 
-      let day = Number(todo.dueDate?.substring(8, 10) as string);
+      let day = Number(todos[i].dueDate?.substring(8, 10) as string);
       if (day > lastDay) continue;
 
-      calendarDays[Number(day) + firstWeekday - 1].todos.push(todo);
+      //Push index of todo into each day of the calendar.
+      //When looking up tasks, we will only get the tasks that have an index pushed in.
+      calendarDays[day + firstWeekday - 1].todoIndexes.push(i);
     }
   }
 
@@ -93,18 +99,21 @@
   <button on:click={() => changeMonth(1)}>Next Month</button>
 
   <div class="calendar">
-        {#each ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"] as weekday}
-        <div class="weekday">
-          <span>{weekday}</span>
-        </div>
-        {/each}
+    {#each ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"] as weekday}
+      <div class="weekday">
+        <span>{weekday}</span>
+      </div>
+    {/each}
     {#each calendarDays as day}
       <div class="day">
         <span>{day.date}</span>
         <div class="todos">
-          {#each day.todos as todo}
-              <TodoDay {todo} {editTodo} />
+          {#each day.todoIndexes as i}
+            <TodoDay todo={todos[i]} {editTodo} />
           {/each}
+          <!-- {#each timedTodos as todo}
+            <TodoDay {todo} {editTodo} />
+          {/each} -->
         </div>
       </div>
     {/each}
@@ -125,7 +134,7 @@
     flex-direction: column;
   }
 
-  .weekday{
+  .weekday {
     width: calc(100% / 8);
     border: 1px solid #ccc;
     padding: 5px;

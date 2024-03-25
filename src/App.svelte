@@ -114,7 +114,7 @@
     <Modal>
       <Calendar
         {editTodo}
-        timedTodos={filteredTodos.filter((todo) => todo.dueDate)}
+        todos={filteredTodos.filter((todo) => todo.dueDate)}
       />
     </Modal>
   {:else}

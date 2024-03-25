@@ -1,10 +1,8 @@
 ## Issues:
 
-- [ ] Tag filter doesn't work on calendar until a mode shift.
-- [ ] A new task is not added to calendar until a mode shift.
 - [ ] Unsure how to get portable modal to work properly.
 - [ ] Form width in modal becomes constrained on small screens.
-- [ ] Complete checkbox next to date todo is not properly synced.
+- [ ] Tag filter should be case-insensitive.
 
 # Svelte + TS + Vite
 

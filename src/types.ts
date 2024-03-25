@@ -20,6 +20,7 @@ export interface iTag {
 export interface iCalendarDay {
   date: number | "";
   todos: iTodo[];
+  todoIndexes: number[];
 }
 
 export type kind = "completed" | "current";

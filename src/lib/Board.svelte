@@ -1,9 +1,10 @@
 <!--Container for holding tasks.-->
 <script lang="ts">
   import type { iTodo } from "../types";
-  import TodoSimple from "./TodoBoard.svelte";
+  import TodoBoard from "./TodoBoard.svelte";
 
   export let todos: iTodo[];
+  console.log({ todos });
   export let removeTodo: (id: number) => void;
   export let editTodo: (todo: iTodo) => void;
 
@@ -14,7 +15,7 @@
   <h3>{title}</h3>
   <div class="todo-container">
     {#each todos as todo}
-      <TodoSimple {todo} {removeTodo} {editTodo} />
+      <TodoBoard {todo} {removeTodo} {editTodo} />
     {/each}
   </div>
 </div>
