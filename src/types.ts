@@ -17,6 +17,11 @@ export interface iTag {
   name: string;
 }
 
+export interface iCalendarDay {
+  date: number | null;
+  todos: iTodo[];
+}
+
 export type kind = "completed" | "current";
 
 export type due = "upcoming" | "due" | "overdue";

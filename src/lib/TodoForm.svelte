@@ -2,7 +2,7 @@
 <script lang="ts">
   import type { iTodo } from "../types";
 
-  import { getContext } from "svelte";
+  import { getContext, onMount } from "svelte";
   import type { Context } from "svelte-simple-modal";
   import InputRange from "./InputRange.svelte";
 
@@ -97,6 +97,12 @@
     }
     close();
   }
+
+  function updateSize(e: Event) {
+    // if (!(e.target instanceof HTMLInputElement)) return;
+    // e.target.size = e.target.value.length - 2;
+    // if (e.target.size >= 30) e.target.size = 30;
+  }
 </script>
 
 <form
@@ -183,8 +189,10 @@
         {#each todo.tags as tag, index}
           <div class="tag flex flex-row">
             <input
-              class="bg-[darkblue] text-[white] m-1 rounded hover:bg-blue-700"
+              class="bg-[darkblue] text-[white] m-1 rounded hover:bg-blue-700 w-24"
+              name="tag-holder"
               bind:value={tag}
+              on:input={(e) => updateSize(e)}
               type="text"
             />
             <button type="button" on:click={(e) => removeTag(e, index)}
