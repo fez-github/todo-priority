@@ -1,7 +1,7 @@
 <!--Container for holding tasks.-->
 <script lang="ts">
   import type { iTodo } from "../types";
-  import TodoSimple from "./TodoSimple.svelte";
+  import TodoSimple from "./TodoBoard.svelte";
 
   export let todos: iTodo[];
   export let removeTodo: (id: number) => void;

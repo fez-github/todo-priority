@@ -98,7 +98,9 @@
   <button type="button" on:click={toggleMode}>Mode Shift</button>
 
   {#if mode === "calendar"}
-    <Calendar />
+    <Modal>
+    <Calendar {editTodo} timedTodos={filteredTodos.filter((todo) => (todo.dueDate)  )} />
+    </Modal>
   {:else}
   <div class="flex flex-row self-start">
     <Modal>

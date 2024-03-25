@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import TodoDay from './TodoDay.svelte'
   import type { iCalendarDay, iTodo } from "../types";
 
   export let timedTodos: iTodo[] = [
@@ -17,6 +18,7 @@
       dueDate: "2024-03-05",
     },
   ];
+  export let editTodo: (todo: iTodo) => void;
 
   let currentDate: Date = new Date();
   let calendarDays: iCalendarDay[] = [];
@@ -99,9 +101,7 @@
         <span>{day.date}</span>
         <div class="todos">
           {#each day.todos as todo}
-            <button class="todo">
-              {todo.title}
-            </button>
+              <TodoDay {todo} {editTodo} />
           {/each}
         </div>
       </div>
