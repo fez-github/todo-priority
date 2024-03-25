@@ -4,7 +4,7 @@
 - [ ] A new task is not added to calendar until a mode shift.
 - [ ] Unsure how to get portable modal to work properly.
 - [ ] Form width in modal becomes constrained on small screens.
-- [ ] Set up sort to change when select value changes.
+- [ ] Complete checkbox next to date todo is not properly synced.
 
 # Svelte + TS + Vite
 

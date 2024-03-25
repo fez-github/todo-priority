@@ -16,7 +16,6 @@
 
   let mode: "calendar" | "board" = "calendar";
   function toggleMode() {
-    console.log({mode})
     mode = mode === "calendar" ? "board" : "calendar";
   }
 
@@ -48,14 +47,8 @@
     });
   }
 
-  let sortVal: "urgency" | "importance" | "time" | "reset" = "reset"
-
-  $: {
-    console.log({sortVal})
-    sortTodos(sortVal);
-  }
-
   function sortTodos(priority: "urgency" | "importance" | "time" | "reset") {
+    console.log("Sorting!");
     if (priority === "urgency") {
       todos = [...todos.sort((a, b) => a.urgency - b.urgency)];
     }
@@ -84,6 +77,13 @@
     todos = todos.map((t) => (t.id === todo.id ? todo : t));
     todoFetcher.updateTodo(todo);
   }
+
+  function selectChange(e: Event) {
+    let select = e.target as HTMLSelectElement;
+    let value = select.value;
+
+    sortTodos(value as "urgency" | "importance" | "time" | "reset");
+  }
 </script>
 
 <main class="flex flex-col items-center">
@@ -94,7 +94,7 @@
     placeholder="Search tags..."
     submitValue={filterTodos}
   />
-  <select id="select" bind:value={sortVal}>
+  <select id="select" on:change={selectChange}>
     <option value="reset">No Sort</option>
     <option value="urgency">Urgency</option>
     <option value="importance">Importance</option>
@@ -112,35 +112,40 @@
 
   {#if mode === "calendar"}
     <Modal>
-    <Calendar {editTodo} timedTodos={filteredTodos.filter((todo) => (todo.dueDate)  )} />
+      <Calendar
+        {editTodo}
+        timedTodos={filteredTodos.filter((todo) => todo.dueDate)}
+      />
     </Modal>
   {:else}
-  <div class="flex flex-row self-start">
-    <Modal>
-      <Board
-        title="Inactive Tasks"
-        todos={filteredTodos.filter(
-          (todo) => todo.completed === false && !todo.startDate && !todo.dueDate
-        )}
-        {removeTodo}
-        {editTodo}
-      />
-      <Board
-        title="Current Tasks"
-        todos={filteredTodos.filter(
-          (todo) => todo.completed === false && (todo.startDate || todo.dueDate)
-        )}
-        {removeTodo}
-        {editTodo}
-      />
-      <Board
-        title="Completed Tasks"
-        todos={filteredTodos.filter((todo) => todo.completed === true)}
-        {removeTodo}
-        {editTodo}
-      />
-    </Modal>
-  </div>
+    <div class="flex flex-row self-start">
+      <Modal>
+        <Board
+          title="Inactive Tasks"
+          todos={filteredTodos.filter(
+            (todo) =>
+              todo.completed === false && !todo.startDate && !todo.dueDate
+          )}
+          {removeTodo}
+          {editTodo}
+        />
+        <Board
+          title="Current Tasks"
+          todos={filteredTodos.filter(
+            (todo) =>
+              todo.completed === false && (todo.startDate || todo.dueDate)
+          )}
+          {removeTodo}
+          {editTodo}
+        />
+        <Board
+          title="Completed Tasks"
+          todos={filteredTodos.filter((todo) => todo.completed === true)}
+          {removeTodo}
+          {editTodo}
+        />
+      </Modal>
+    </div>
   {/if}
   <Modal>
     <div>
