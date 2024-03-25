@@ -5,7 +5,7 @@
   export let timedTodos: iTodo[] = [
     {
       id: Date.now(),
-      title: "",
+      title: "Test Title",
       description: "",
       urgency: 0,
       importance: 0,
@@ -18,11 +18,6 @@
     },
   ];
 
-  //Determine what day the month starts on.
-
-  //Have 6 rows.
-  //Have 7 columns.
-
   let currentDate: Date = new Date();
   let calendarDays: iCalendarDay[] = [];
 
@@ -30,28 +25,24 @@
   let currentMonth: number = currentDate.getMonth() + 1;
   let currentYear: number = currentDate.getFullYear();
 
+  let firstWeekday: number = 0;
+  let lastDay: number = 0;
+
+  $: {
+    firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
+    lastDay = new Date(currentYear, currentMonth, 0).getDate();
+  }
+
   function generateCalendar(): void {
     calendarDays = [];
 
-    let firstDayOfMonth: number = new Date(
-      currentYear,
-      currentMonth - 1,
-      1
-    ).getDay();
-
     //Generate empty days before the first day of the month.
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      calendarDays.push({ date: null, todos: [] });
+    for (let i = 0; i < firstWeekday; i++) {
+      calendarDays.push({ date: "", todos: [] });
     }
 
-    let lastDayOfMonth: number = new Date(
-      currentYear,
-      currentMonth - 1,
-      0
-    ).getDate();
-
     //Generate days in the month.
-    for (let i = 1; i <= lastDayOfMonth; i++) {
+    for (let i = 1; i <= lastDay; i++) {
       calendarDays.push({ date: i, todos: [] });
     }
   }
@@ -59,15 +50,19 @@
   //Add each task to the correct day.
   //Month & date functions assume yyyy-mm-dd format.
   function populateDays() {
+    console.log({ timedTodos });
+    console.log({ calendarDays });
+
     for (let todo of timedTodos) {
-      let month = todo.dueDate?.substring(5, 7) as string;
-      if (month != currentMonth.toString()) continue;
+      let month = todo.dueDate?.substring(5, 7).replaceAll("0", "") as string;
+      if (month !== currentMonth.toString()) continue;
 
-      let day = todo.dueDate?.substring(8, 10) as string;
-      if (day > currentDay.toString()) continue;
+      let day = Number(todo.dueDate?.substring(8, 10) as string);
+      if (day > lastDay) continue;
 
-      calendarDays[currentDay - 1].todos.push(todo);
+      calendarDays[Number(day) + firstWeekday - 1].todos.push(todo);
     }
+    // calendarDays = [...calendarDays];
   }
 
   function changeMonth(num: number): void {
@@ -80,6 +75,7 @@
       currentYear--;
     }
     generateCalendar();
+    populateDays();
   }
 
   onMount(() => {
@@ -89,7 +85,7 @@
 </script>
 
 <div>
-  <h1>{currentYear} - {currentMonth + 1}</h1>
+  <h1>{currentYear}-{currentMonth}</h1>
   <button on:click={() => changeMonth(-1)}>Previous Month</button>
   <button on:click={() => changeMonth(1)}>Next Month</button>
 
@@ -99,86 +95,15 @@
         <span>{day.date}</span>
         <div class="todos">
           {#each day.todos as todo}
-            <div class="todo">
-              <span>{todo.title}</span>
-            </div>
+            <button class="todo">
+              {todo.title}
+            </button>
           {/each}
         </div>
       </div>
     {/each}
   </div>
 </div>
-
-<!-- <script lang="ts">
-  import { onMount } from "svelte";
-
-  let currentDate: Date = new Date();
-  let daysInMonth: number[] = [];
-  let currentMonth: number = currentDate.getMonth();
-  let currentYear: number = currentDate.getFullYear();
-
-  function generateCalendar(): void {
-    daysInMonth = [];
-
-    let firstDayOfMonth: number = new Date(
-      currentYear,
-      currentMonth,
-      1
-    ).getDay();
-    let startPosition = (firstDayOfMonth + 6) % 7;
-    let lastDayOfMonth: Date = new Date(currentYear, currentMonth + 1, 0);
-
-    for (let i: number = 1; i <= lastDayOfMonth.getDate(); i++) {
-      daysInMonth.push(i);
-    }
-  }
-
-  onMount(() => {
-    generateCalendar();
-  });
-
-  function changeMonth(delta: number): void {
-    currentMonth += delta;
-    if (currentMonth > 11) {
-      currentMonth = 0;
-      currentYear++;
-    } else if (currentMonth < 0) {
-      currentMonth = 11;
-      currentYear--;
-    }
-    generateCalendar();
-  }
-</script>
-
-<div>
-  <h1>{currentYear} - {currentMonth + 1}</h1>
-  <button on:click={() => changeMonth(-1)}>Previous Month</button>
-  <button on:click={() => changeMonth(1)}>Next Month</button>
-
-  <div class="calendar">
-    {#each daysInMonth as day}
-      <div class="day">
-        <span>{day}</span>
-        <div class="misc">
-        </div>
-      </div>
-    {/each}
-  </div>
-</div>
-
-<style>
-  .calendar {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .day {
-    width: calc(100% / 8);
-    border: 1px solid #ccc;
-    padding: 5px;
-  }
-</style> 
--->
 
 <style>
   .calendar {
