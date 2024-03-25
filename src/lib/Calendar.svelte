@@ -28,12 +28,11 @@
   let firstWeekday: number = 0;
   let lastDay: number = 0;
 
-  $: {
-    firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
-    lastDay = new Date(currentYear, currentMonth, 0).getDate();
-  }
+  firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
+  lastDay = new Date(currentYear, currentMonth, 0).getDate();
 
   function generateCalendar(): void {
+    console.log({ currentMonth });
     calendarDays = [];
 
     //Generate empty days before the first day of the month.
@@ -45,13 +44,14 @@
     for (let i = 1; i <= lastDay; i++) {
       calendarDays.push({ date: i, todos: [] });
     }
+    console.log("Generated!");
   }
 
   //Add each task to the correct day.
   //Month & date functions assume yyyy-mm-dd format.
   function populateDays() {
-    console.log({ timedTodos });
-    console.log({ calendarDays });
+    // console.log({ timedTodos });
+    // console.log({ calendarDays });
 
     for (let todo of timedTodos) {
       let month = todo.dueDate?.substring(5, 7).replaceAll("0", "") as string;
@@ -70,10 +70,14 @@
     if (currentMonth > 12) {
       currentMonth = 1;
       currentYear++;
-    } else if (currentMonth < 0) {
-      currentMonth = 1;
+    } else if (currentMonth < 1) {
+      currentMonth = 12;
       currentYear--;
     }
+
+    firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
+    lastDay = new Date(currentYear, currentMonth, 0).getDate();
+
     generateCalendar();
     populateDays();
   }
