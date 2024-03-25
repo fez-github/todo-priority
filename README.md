@@ -4,7 +4,6 @@
 - [ ] A new task is not added to calendar until a mode shift.
 - [ ] Unsure how to get portable modal to work properly.
 - [ ] Form width in modal becomes constrained on small screens.
-- [ ] Need to mark task as Complete while on form.
 - [ ] Set up sort to change when select value changes.
 
 # Svelte + TS + Vite
@@ -51,6 +50,6 @@ If you have state that's important to retain within a component, consider creati
 ```ts
 // store.ts
 // An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+import { writable } from "svelte/store";
+export default writable(0);
 ```

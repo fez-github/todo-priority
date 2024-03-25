@@ -222,6 +222,10 @@
         />
       </label>
     </div>
+    <label>
+      Complete?
+      <input type="checkbox" name="isComplete" bind:checked={todo.completed} />
+    </label>
   </div>
   <button class="my-2" on:submit={formSubmit} type="submit" title="Add task."
     >Save</button
