@@ -14,8 +14,9 @@
 
   const todoFetcher = new LocalStorageFetcher();
 
-  let mode: "calendar" | "board" = "board";
+  let mode: "calendar" | "board" = "calendar";
   function toggleMode() {
+    console.log({mode})
     mode = mode === "calendar" ? "board" : "calendar";
   }
 
@@ -94,9 +95,11 @@
   </button>
   <button type="button" on:click={() => sortTodos("time")}>Sort by Time</button>
   <button type="button" on:click={() => sortTodos("reset")}>Reset</button>
-  <button type="button" on:click={() => toggleMode}>Mode Shift</button>
+  <button type="button" on:click={toggleMode}>Mode Shift</button>
 
-  <Calendar />
+  {#if mode === "calendar"}
+    <Calendar />
+  {:else}
   <div class="flex flex-row self-start">
     <Modal>
       <Board
@@ -123,6 +126,7 @@
       />
     </Modal>
   </div>
+  {/if}
   <Modal>
     <div>
       <TodoForm onSubmit={addTodo} />
