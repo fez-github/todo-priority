@@ -52,8 +52,6 @@
   //Add each task to the correct day.
   //Month & date functions assume yyyy-mm-dd format.
   function populateDays() {
-    // console.log({ timedTodos });
-    // console.log({ calendarDays });
 
     for (let todo of timedTodos) {
       let month = todo.dueDate?.substring(5, 7).replaceAll("0", "") as string;
@@ -64,7 +62,6 @@
 
       calendarDays[Number(day) + firstWeekday - 1].todos.push(todo);
     }
-    // calendarDays = [...calendarDays];
   }
 
   function changeMonth(num: number): void {
@@ -96,6 +93,11 @@
   <button on:click={() => changeMonth(1)}>Next Month</button>
 
   <div class="calendar">
+        {#each ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"] as weekday}
+        <div class="weekday">
+          <span>{weekday}</span>
+        </div>
+        {/each}
     {#each calendarDays as day}
       <div class="day">
         <span>{day.date}</span>
@@ -121,5 +123,12 @@
     padding: 5px;
     display: flex;
     flex-direction: column;
+  }
+
+  .weekday{
+    width: calc(100% / 8);
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
   }
 </style>

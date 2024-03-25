@@ -48,6 +48,13 @@
     });
   }
 
+  let sortVal: "urgency" | "importance" | "time" | "reset" = "reset"
+
+  $: {
+    console.log({sortVal})
+    sortTodos(sortVal);
+  }
+
   function sortTodos(priority: "urgency" | "importance" | "time" | "reset") {
     if (priority === "urgency") {
       todos = [...todos.sort((a, b) => a.urgency - b.urgency)];
@@ -87,6 +94,12 @@
     placeholder="Search tags..."
     submitValue={filterTodos}
   />
+  <select id="select" bind:value={sortVal}>
+    <option value="reset">No Sort</option>
+    <option value="urgency">Urgency</option>
+    <option value="importance">Importance</option>
+    <option value="time">Time</option>
+  </select>
   <button type="button" on:click={() => sortTodos("urgency")}
     >Sort by Urgency</button
   >
