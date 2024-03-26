@@ -1,3 +1,4 @@
+<!--View scheduled tasks in calendar format.-->
 <script lang="ts">
   import { onMount } from "svelte";
   import TodoDay from "./TodoDay.svelte";
@@ -31,33 +32,27 @@
   let lastDay = new Date(currentYear, currentMonth, 0).getDate();
 
   function generateCalendar(): void {
-    console.log({ currentMonth });
     calendarDays = [];
 
     //Generate empty days before the first day of the month.
     for (let i = 0; i < firstWeekday; i++) {
-      calendarDays.push({
-        date: "",
-        todos: [],
-        todoIndexes: [],
-      });
+      calendarDays.push({ date: "", todoIndexes: [] });
     }
 
     //Generate days in the month.
     for (let i = 1; i <= lastDay; i++) {
-      calendarDays.push({
-        date: i,
-        todos: [],
-        todoIndexes: [],
-      });
+      calendarDays.push({ date: i, todoIndexes: [] });
     }
-    console.log("Generated!");
   }
 
-  //Add each task to the correct day.
-  //Month & date functions assume yyyy-mm-dd format.
+  /**
+   *   Add each task to the correct day.
+   *   Month & date functions assume yyyy-mm-dd format.
+   */
   function populateDays() {
     for (let i = 0; i < todos.length; i++) {
+      if (!todos[i].dueDate) continue;
+
       let month = todos[i].dueDate?.substring(5, 7).replaceAll("0", "");
       if (month !== currentMonth.toString()) continue;
 
@@ -98,46 +93,21 @@
   <button on:click={() => changeMonth(-1)}>Previous Month</button>
   <button on:click={() => changeMonth(1)}>Next Month</button>
 
-  <div class="calendar">
+  <div class="flex flex-wrap">
     {#each ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"] as weekday}
-      <div class="weekday">
+      <div class="w-[calc(100% / 8)] border p-1.5 text-center">
         <span>{weekday}</span>
       </div>
     {/each}
     {#each calendarDays as day}
       <div class="day">
         <span>{day.date}</span>
-        <div class="todos">
+        <div class="w-calc[(100% / 8)] border p-1.5 flex flex-col">
           {#each day.todoIndexes as i}
             <TodoDay todo={todos[i]} {editTodo} />
           {/each}
-          <!-- {#each timedTodos as todo}
-            <TodoDay {todo} {editTodo} />
-          {/each} -->
         </div>
       </div>
     {/each}
   </div>
 </div>
-
-<style>
-  .calendar {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .day {
-    width: calc(100% / 8);
-    border: 1px solid #ccc;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .weekday {
-    width: calc(100% / 8);
-    border: 1px solid #ccc;
-    padding: 5px;
-    text-align: center;
-  }
-</style>

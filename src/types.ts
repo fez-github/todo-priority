@@ -19,7 +19,6 @@ export interface iTag {
 
 export interface iCalendarDay {
   date: number | "";
-  todos: iTodo[];
   todoIndexes: number[];
 }
 
