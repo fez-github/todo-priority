@@ -4,7 +4,6 @@
   import TodoBoard from "./TodoBoard.svelte";
 
   export let todos: iTodo[];
-  console.log({ todos });
   export let removeTodo: (id: number) => void;
   export let editTodo: (todo: iTodo) => void;
 

@@ -32,6 +32,8 @@
       return;
     }
 
+    str = str.toLowerCase();
+
     filteredTodos = todos.filter((todo) => {
       if (!todo.tags) return false;
       let hasMatch: boolean = false;
@@ -48,7 +50,6 @@
   }
 
   function sortTodos(priority: "urgency" | "importance" | "time" | "reset") {
-    console.log("Sorting!");
     if (priority === "urgency") {
       todos = [...todos.sort((a, b) => a.urgency - b.urgency)];
     }
@@ -100,14 +101,6 @@
     <option value="importance">Importance</option>
     <option value="time">Time</option>
   </select>
-  <button type="button" on:click={() => sortTodos("urgency")}
-    >Sort by Urgency</button
-  >
-  <button type="button" on:click={() => sortTodos("importance")}>
-    Sort by Importance
-  </button>
-  <button type="button" on:click={() => sortTodos("time")}>Sort by Time</button>
-  <button type="button" on:click={() => sortTodos("reset")}>Reset</button>
   <button type="button" on:click={toggleMode}>Mode Shift</button>
 
   {#if mode === "calendar"}

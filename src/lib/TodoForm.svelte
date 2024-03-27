@@ -98,6 +98,7 @@
     close();
   }
 
+  //Adjust the size of tag inputs to fit their content.
   function updateSize(e: Event) {
     // if (!(e.target instanceof HTMLInputElement)) return;
     // e.target.size = e.target.value.length - 2;
