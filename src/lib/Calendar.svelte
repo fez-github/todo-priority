@@ -95,14 +95,18 @@
 
   <div class="flex flex-wrap">
     {#each ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"] as weekday}
-      <div class="w-[calc(100% / 8)] border p-1.5 text-center">
+      <div
+        class=" w-[12.5%] p-[5px] text-center border border-solid border-[#ccc]"
+      >
         <span>{weekday}</span>
       </div>
     {/each}
     {#each calendarDays as day}
-      <div class="day">
+      <div
+        class="day flex flex-col p-[5px] w-[12.5%] border border-solid border-[#ccc]"
+      >
         <span>{day.date}</span>
-        <div class="w-calc[(100% / 8)] border p-1.5 flex flex-col">
+        <div>
           {#each day.todoIndexes as i}
             <TodoDay todo={todos[i]} {editTodo} />
           {/each}
