@@ -22,11 +22,9 @@
   export let addTodo: (todo: iTodo) => void;
   export let newForm: boolean = false;
 
-  console.log(addTodo);
-
   export function openForm() {
     open(TodoForm, { todo: { ...todo }, onSubmit: addTodo, newForm: newForm });
   }
 </script>
 
-<button on:click={openForm}>New Todo</button>
+<button class="text-lg" on:click={openForm}>New Todo</button>

@@ -15,7 +15,7 @@
 
   const todoFetcher = new LocalStorageFetcher();
 
-  let mode: "calendar" | "board" = "calendar";
+  let mode: "calendar" | "board" = "board";
   function toggleMode() {
     mode = mode === "calendar" ? "board" : "calendar";
   }
@@ -95,9 +95,11 @@
 
 <main class="flex flex-col items-center">
   <div
-    class="flex justify-evenly bg-black text-white p-2.5 sticky top-0 z-10 w-full"
+    class="flex text-lg justify-around bg-black text-white p-2.5 sticky top-0 z-10 w-full"
   >
-    <button type="button" on:click={toggleMode}>Mode Shift</button>
+    <button class="text-lg w-[89.05px]" type="button" on:click={toggleMode}
+      >{#if mode === "board"}Calendar{:else}Board{/if}</button
+    >
     <SearchBar
       label="Tag Filter"
       title="Filter tasks by tag."
