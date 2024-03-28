@@ -20,5 +20,4 @@
     on:input={(e) => onChange(e)}
     on:submit|preventDefault
   />
-  <button type="button">Search</button>
 </label>

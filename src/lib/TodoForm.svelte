@@ -16,7 +16,7 @@
     importance: 0,
     time: 0,
     completed: false,
-    tags: ["Test1", "Test2"],
+    tags: [],
     subtasks: [],
     startDate: null,
     dueDate: null,
@@ -25,7 +25,7 @@
   export let newForm: boolean = true;
   export let onSubmit: (todo: iTodo) => void;
 
-  let expanded: boolean = true; //newForm ? false : true;
+  let expanded: boolean = true;
 
   let newTag: string = "";
 

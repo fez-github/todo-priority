@@ -49,7 +49,7 @@
     });
   }
 
-  function sortTodos(priority: "urgency" | "importance" | "time" | "reset") {
+  function sortTodos(priority: "urgency" | "importance" | "time" | "reset" | "title") {
     if (priority === "urgency") {
       todos = [...todos.sort((a, b) => a.urgency - b.urgency)];
     }
@@ -61,6 +61,9 @@
     }
     if (priority === "reset") {
       todos = [...todos.sort((a, b) => a.id - b.id)];
+    }
+    if (priority === "title"){
+      todos = [...todos.sort((a,b) => a.title.localeCompare(b.title))];
     }
   }
 
@@ -96,10 +99,11 @@
     submitValue={filterTodos}
   />
   <select id="select" on:change={selectChange}>
-    <option value="reset">No Sort</option>
-    <option value="urgency">Urgency</option>
-    <option value="importance">Importance</option>
-    <option value="time">Time</option>
+    <option value="reset">Sort By...</option>
+    <option value="title">Sort By Title</option>
+    <option value="urgency">Sort By Urgency</option>
+    <option value="importance">Sort by Importance</option>
+    <option value="time">Sort by Time</option>
   </select>
   <button type="button" on:click={toggleMode}>Mode Shift</button>
 
