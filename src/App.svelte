@@ -7,10 +7,11 @@
 
   import Modal from "svelte-simple-modal";
 
-  import NavBar from "./lib/NavBar.svelte";
   import SearchBar from "./lib/SearchBar.svelte";
   import { LocalStorageFetcher } from "./localstoragefetch";
   import Calendar from "./lib/Calendar.svelte";
+  import openForm from "./lib/TodoOpener.svelte";
+  import TodoOpener from "./lib/TodoOpener.svelte";
 
   const todoFetcher = new LocalStorageFetcher();
 
@@ -49,7 +50,9 @@
     });
   }
 
-  function sortTodos(priority: "urgency" | "importance" | "time" | "reset" | "title") {
+  function sortTodos(
+    priority: "urgency" | "importance" | "time" | "reset" | "title"
+  ) {
     if (priority === "urgency") {
       todos = [...todos.sort((a, b) => a.urgency - b.urgency)];
     }
@@ -62,8 +65,8 @@
     if (priority === "reset") {
       todos = [...todos.sort((a, b) => a.id - b.id)];
     }
-    if (priority === "title"){
-      todos = [...todos.sort((a,b) => a.title.localeCompare(b.title))];
+    if (priority === "title") {
+      todos = [...todos.sort((a, b) => a.title.localeCompare(b.title))];
     }
   }
 
@@ -91,21 +94,29 @@
 </script>
 
 <main class="flex flex-col items-center">
-  <NavBar />
-  <SearchBar
-    label="Tag Filter"
-    title="Filter tasks by tag."
-    placeholder="Search tags..."
-    submitValue={filterTodos}
-  />
-  <select id="select" on:change={selectChange}>
-    <option value="reset">Sort By...</option>
-    <option value="title">Sort By Title</option>
-    <option value="urgency">Sort By Urgency</option>
-    <option value="importance">Sort by Importance</option>
-    <option value="time">Sort by Time</option>
-  </select>
-  <button type="button" on:click={toggleMode}>Mode Shift</button>
+  <div
+    class="flex justify-evenly bg-black text-white p-2.5 sticky top-0 z-10 w-full"
+  >
+    <button type="button" on:click={toggleMode}>Mode Shift</button>
+    <SearchBar
+      label="Tag Filter"
+      title="Filter tasks by tag."
+      placeholder="Search tags..."
+      submitValue={filterTodos}
+    />
+    <label
+      >Task Sort: <select id="select" on:change={selectChange}>
+        <option value="reset">Sort By...</option>
+        <option value="title">Sort By Title</option>
+        <option value="urgency">Sort By Urgency</option>
+        <option value="importance">Sort by Importance</option>
+        <option value="time">Sort by Time</option>
+      </select></label
+    >
+    <Modal>
+      <TodoOpener {addTodo} newForm={true} />
+    </Modal>
+  </div>
 
   {#if mode === "calendar"}
     <Modal>
