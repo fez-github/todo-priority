@@ -10,28 +10,12 @@
   export let title: string = "Default Title";
 </script>
 
-<div class="todo-board">
+<div
+  class="flex flex-col border border-solid border-black rounded-md
+  p-5 m-[10px] items-center w-[400px] h-[700px] overflow-y-scroll"
+>
   <h3>{title}</h3>
-  <div class="todo-container">
-    {#each todos as todo}
-      <TodoBoard {todo} {removeTodo} {editTodo} />
-    {/each}
-  </div>
+  {#each todos as todo}
+    <TodoBoard {todo} {removeTodo} {editTodo} />
+  {/each}
 </div>
-
-<style>
-  .todo-board {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-
-    border-radius: 5px;
-    align-items: center;
-    width: 400px;
-    height: 700px;
-
-    overflow-y: scroll;
-  }
-</style>

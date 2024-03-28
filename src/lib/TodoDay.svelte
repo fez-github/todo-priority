@@ -3,7 +3,7 @@
 
   import type { iTodo } from "../types";
 
-  import { getContext } from "svelte";
+  import { getContext, onMount } from "svelte";
   import type { Context } from "svelte-simple-modal";
   import TodoForm from "./TodoForm.svelte";
   const { open } = getContext<Context>("simple-modal");
@@ -11,16 +11,18 @@
   export let todo: iTodo;
   export let editTodo: (todo: iTodo) => void;
 
+  console.log({ todo });
+
   function changeComplete() {
     todo.completed = !todo.completed;
     editTodo(todo);
   }
 </script>
 
-<div class="flex flex-row w-full">
+<div class="flex flex-row">
   <input type="checkbox" on:change={changeComplete} checked={todo.completed} />
   <button
-    class="whitespace-nowrap {todo.completed ? 'line-through' : ''}"
+    class=" {todo.completed ? 'line-through' : ''}"
     on:click={() => {
       open(TodoForm, { todo: { ...todo }, onSubmit: editTodo, newForm: false });
     }}>{todo.title}</button

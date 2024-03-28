@@ -31,6 +31,9 @@
   let firstWeekday = new Date(currentYear, currentMonth - 1, 1).getDay();
   let lastDay = new Date(currentYear, currentMonth, 0).getDate();
 
+  //Update calendar when todos change.  Done to properly update any sorting or filters.
+  $: todos && (generateCalendar(), populateDays());
+
   function generateCalendar(): void {
     calendarDays = [];
 
@@ -103,10 +106,10 @@
     {/each}
     {#each calendarDays as day}
       <div
-        class="day flex flex-col p-[5px] w-[12.5%] border border-solid border-[#ccc]"
+        class="day flex flex-col p-[5px] w-[12.5%] h-[126px] border border-solid border-[#ccc]"
       >
         <span>{day.date}</span>
-        <div>
+        <div class="overflow-y-auto">
           {#each day.todoIndexes as i}
             <TodoDay todo={todos[i]} {editTodo} />
           {/each}

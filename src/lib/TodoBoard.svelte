@@ -12,25 +12,12 @@
   export let removeTodo: (id: number) => void;
   export let editTodo: (todo: iTodo) => void;
 
-  let startSoon: boolean = false;
-  let dueSoon: boolean = false;
-
-  //Check if start date or due date is within 1 week from now.
-  if (todo.startDate) {
-    const date = new Date(todo.startDate);
-    startSoon = date < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  }
-  if (todo.dueDate) {
-    const date = new Date(todo.dueDate);
-    dueSoon = date < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  }
-
   function deleteTodo() {
     removeTodo(todo.id);
   }
 
-  function completeTodo() {
-    todo.completed = true;
+  function changeCompletion() {
+    todo.completed = !todo.completed;
     editTodo(todo);
   }
 </script>
@@ -40,29 +27,44 @@
   on:click={() => {
     open(TodoForm, { todo: { ...todo }, onSubmit: editTodo, newForm: false });
   }}
->
-  <div class="title">
-    {todo.title}
+  ><div class="flex flex-col w-full">
+    <div class="dates">
+      {#if todo.startDate}<span>Start: {todo.startDate}</span>{/if}
+      {#if todo.dueDate}<span>Due: {todo.dueDate}</span>{/if}
+    </div>
+    <div class="flex flex-row justify-between gap-3">
+      <h2 class="title">
+        {todo.title}
+      </h2>
+      <div class="flex flex-col justify-center">
+        <span>
+          Urgency: {todo.urgency}
+        </span>
+        <span>
+          Importance: {todo.importance}
+        </span>
+        <span>
+          Time: {todo.time}
+        </span>
+      </div>
+    </div>
   </div>
-  <button class="delete" on:click|stopPropagation={deleteTodo}>Delete</button>
-  <button class="complete" on:click|stopPropagation={completeTodo}>
-    {#if todo.completed}
-      Archive
-    {:else}
-      Complete
-    {/if}
-  </button>
 
-  <div class="date-pickers">
-    {#if todo.startDate}<span>Start: {todo.startDate}</span>{/if}
-    {#if todo.dueDate}<span>Due: {todo.dueDate}</span>{/if}
-  </div>
+  <!-- <button class="delete" on:click|stopPropagation={deleteTodo}>Delete</button>
+  <button class="complete" on:click|stopPropagation={changeCompletion}> -->
+  <!-- {#if todo.completed}
+    Completed
+  {:else}
+    Complete
+  {/if} -->
+  <!-- </button> -->
 </button>
 
 <style>
   .todo-container {
     display: flex;
     flex-direction: row;
+    gap: 10px;
     border: 1px solid black;
     padding: 10px;
     margin: 10px;
@@ -76,10 +78,10 @@
     background-color: #fcfcfc;
     transition: 0.2s ease-in-out;
   }
-  .date-pickers {
+  .dates {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
     gap: 10px;
   }
 

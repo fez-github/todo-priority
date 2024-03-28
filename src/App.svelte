@@ -90,7 +90,7 @@
 <main class="flex flex-col items-center">
   <NavBar />
   <SearchBar
-    label="Tag Search"
+    label="Tag Filter"
     title="Filter tasks by tag."
     placeholder="Search tags..."
     submitValue={filterTodos}
@@ -111,7 +111,7 @@
       />
     </Modal>
   {:else}
-    <div class="flex flex-row self-start">
+    <div class="flex flex-row self-start w-full overflow-x-scroll">
       <Modal>
         <Board
           title="Inactive Tasks"
