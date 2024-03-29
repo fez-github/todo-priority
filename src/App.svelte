@@ -157,9 +157,4 @@
       </Modal>
     </div>
   {/if}
-  <Modal>
-    <div>
-      <TodoForm onSubmit={addTodo} />
-    </div>
-  </Modal>
 </main>

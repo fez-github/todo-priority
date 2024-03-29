@@ -110,9 +110,11 @@
       >
         <span>{day.date}</span>
         <div class="overflow-y-auto">
-          {#each day.todoIndexes as i}
-            <TodoDay todo={todos[i]} {editTodo} />
-          {/each}
+          {#if todos.length > 0}
+            {#each day.todoIndexes as i}
+              <TodoDay todo={todos[i]} {editTodo} />
+            {/each}
+          {/if}
         </div>
       </div>
     {/each}
