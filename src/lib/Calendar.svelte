@@ -99,14 +99,14 @@
   <div class="flex flex-wrap">
     {#each ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"] as weekday}
       <div
-        class=" w-[12.5%] p-[5px] text-center border border-solid border-[#ccc]"
+        class=" w-[12.5vw] p-[5px] text-center border border-solid border-[#ccc]"
       >
         <span>{weekday}</span>
       </div>
     {/each}
     {#each calendarDays as day}
       <div
-        class="day flex flex-col p-[5px] w-[12.5%] h-[126px] border border-solid border-[#ccc]"
+        class="day flex flex-col p-[5px] w-[12.5vw] h-[126px] border border-solid border-[#ccc]"
       >
         <span>{day.date}</span>
         <div class="overflow-y-auto">

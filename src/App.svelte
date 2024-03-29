@@ -128,7 +128,7 @@
       />
     </Modal>
   {:else}
-    <div class="flex flex-row self-start w-full overflow-x-scroll">
+    <div class="flex flex-row self-start w-full">
       <Modal>
         <Board
           title="Inactive Tasks"
