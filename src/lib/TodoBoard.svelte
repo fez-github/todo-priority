@@ -21,16 +21,14 @@
     editTodo(todo);
   }
 
-  function revealButtons(){
-    
-  }
+  function revealButtons() {}
 </script>
 
 <button
   class="todo-container"
   on:click={() => {
     open(TodoForm, { todo: { ...todo }, onSubmit: editTodo, newForm: false });
-  }} 
+  }}
   ><div class="flex flex-col w-full">
     <div class="dates">
       {#if todo.startDate}<span>Start: {todo.startDate}</span>{/if}
@@ -51,6 +49,18 @@
           Time: {todo.time}
         </span>
       </div>
+    </div>
+    <div class="flex flex-row justify-center">
+      <button class="complete" on:click|stopPropagation={changeCompletion}>
+        {#if todo.completed}
+          Incomplete
+        {:else}
+          Complete
+        {/if}
+      </button>
+      <button class="delete" on:click|stopPropagation={deleteTodo}
+        >Delete</button
+      >
     </div>
   </div>
 </button>
